@@ -37,10 +37,13 @@
 import { auth } from "@/plugins/firebase/firebaseinit";
 export default {
   name: "register",
-  data: () => ({
-    valid: false,
+  data: () => {
+    return {
+      valid: false,
     nameRules: [v => !!v || "Name is required"],
     passRules: [v => !!v || "Password is required"],
+    pictureRules: [value => value.size < 2000000 || "Avatar size should be less than 2 MB!"
+    ],
     name: "Eze Henry Tochukwu",
     loading: false,
     email: "mmm@gmail.com",
@@ -90,7 +93,8 @@ export default {
       "Zamfara"
     ],
     gender: ["male", "female"]
-  }),
+    }
+  },
   methods: {
     reg(e) {
       e.preventDefault();

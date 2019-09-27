@@ -5,6 +5,7 @@ import adminlogin from "./views/admin/Adminlogin.vue";
 import adminregister from "./views/admin/adminregister.vue";
 import login from "./views/student/login.vue";
 import home from "./views/student/home.vue";
+import setProfile from "./views/student/setprofile.vue";
 import listofbooks from "./views/student/List-of-books.vue";
 import register from "./views/student/register.vue";
 import studentprofile from "./views/student/studentprofile.vue";
@@ -12,7 +13,7 @@ import studentdashboard from "./views/student/studentdashboard.vue";
 import payment from "./views/student/schoolfees.vue";
 import complaints from "./views/student/complaints.vue";
 import info from "./views/student/info.vue";
-import { auth } from '@/plugins/firebase/firebaseinit'
+//import { auth } from '@/plugins/firebase/firebaseinit'
 Vue.use(Router);
 
 const router = new Router({
@@ -40,6 +41,13 @@ const router = new Router({
     {
       path: "/admindashboard",
       component: admindashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/setprofile",
+      component: setProfile,
       meta: {
         requiresAuth: true
       }

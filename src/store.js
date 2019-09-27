@@ -35,7 +35,7 @@ const store = new Vuex.Store({
         email: vueApp.email,
         userId: user.uid
       }
-        //adding to firestore collection creating the gainsville cllection
+        //adding to firestore collection creating the gainsville collection
       db.collection("gainsville")
         .doc()
         .set(userData) // passing the user data to firestore 
