@@ -1,0 +1,12 @@
+<template>
+    <v-app-bar app color="white" elevate-on-scroll scroll-target="#scrolling-techniques-7">
+      <v-toolbar-title>GAINSVILLE ADMIN</v-toolbar-title>
+      <div class="flex-grow-1"></div>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+    </v-app-bar>
+</template>
