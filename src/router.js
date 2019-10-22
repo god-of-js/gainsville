@@ -2,6 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 import admin from "./views/admin/admindashboard.vue";
 import updatebooks from "./views/admin/updatebooks.vue";
+import uploadresults from "./views/admin/uploadresults.vue";
+import feesrecords from "./views/admin/feesrecords.vue";
+import studentslist from "./views/admin/studentslist.vue";
 import updatefees from "./views/admin/updatefees.vue";
 import addadmin from "./views/admin/addAdmin.vue";
 import manageaccounts from "./views/admin/manageaccounts.vue";
@@ -63,6 +66,10 @@ const router = new Router({
           component: admin
         },
         {
+          path: "/studentslist",
+          component: studentslist
+        },
+        {
           path: "/addadmin",
           component: addadmin
         },
@@ -81,6 +88,14 @@ const router = new Router({
         {
           path: "/updatebooks",
           component: updatebooks
+        },
+        {
+          path: "/uploadresults",
+          component: uploadresults
+        },
+        {
+          path: "/feesrecords",
+          component: feesrecords
         },
         {
           path: "/manageaccounts",

@@ -8,6 +8,7 @@ auth.onAuthStateChanged(user => {
     ? (async () => {
         store.commit("setCurrentUser", user);
         store.dispatch("getUserProfile", user.uid);
+
       })()
     : null;
 });
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
     currentUser: null,
     userProfile: null,
     isAdmin: false,
-    isSuperAdmin: false
+    isSuperAdmin: false,
+    studentsCollection: []
   },
   mutations: {
     setCurrentUser: (state, val) => {
@@ -30,6 +32,9 @@ const store = new Vuex.Store({
     },
     setSuperAdmin(state, val) {
       state.isSuperAdmin = val;
+    },
+    setStudentsCollection(state, val) {
+      state.studentsCollection = val;
     }
   },
   actions: {
@@ -56,6 +61,7 @@ const store = new Vuex.Store({
         .set(userData) // passing the user data to firestore
         .then(() => {
           commit("setUserProfile", userData); //commiting user data to the store
+          commit("setStudentCollection", userData);
           vueApp.$router.push("/studentdashboard");
         })
         .then(() => {
@@ -81,10 +87,10 @@ const store = new Vuex.Store({
           query.forEach(doc => {
             if (doc.data().isAdmin == true) {
               commit("setAdmin", doc.data());
-              vueApp.$router.push("/admindashboard");
+              vueApp.$router.push("/admin");
             } else if (doc.data().isSuperAdmin == true) {
               commit("setSuperAdmin", doc.data());
-              vueApp.$router.push("/admindashboard");
+              vueApp.$router.push("/admin");
             } else vueApp.$router.push("/studentdashboard");
           });
         });
@@ -98,6 +104,16 @@ const store = new Vuex.Store({
             commit("setCurrentUser", doc.data());
           });
         });
+    },
+    getStudentCollection({commit} ) {
+      const studentArr = [];
+      db.collection("gainsville").get()
+      .then((snapshot) => {
+        snapshot.forEach(doc => {
+          studentArr.push(doc.data())
+          commit("setStudentsCollection", studentArr)
+        })
+      })
     }
   }
 });
