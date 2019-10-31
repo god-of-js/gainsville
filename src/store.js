@@ -6,19 +6,23 @@ auth.onAuthStateChanged(user => {
   //if user exists commit setscurrentUser else  null
   user
     ? (async () => {
-        store.commit("setCurrentUser", user);
-        store.dispatch("getUserProfile", user.uid);
-
-      })()
+      store.commit("setCurrentUser", user);
+      store.dispatch("getUserProfile", user.uid);
+    })()
     : null;
 });
 const store = new Vuex.Store({
   state: {
+    firestore: db,
     currentUser: null,
     userProfile: null,
     isAdmin: false,
     isSuperAdmin: false,
-    studentsCollection: []
+    studentsCollection: [],
+    convo: [],
+    all: {},
+    allIds: [],
+    messages: []
   },
   mutations: {
     setCurrentUser: (state, val) => {
@@ -35,12 +39,20 @@ const store = new Vuex.Store({
     },
     setStudentsCollection(state, val) {
       state.studentsCollection = val;
+    },
+    setConvos(state, val) {
+      state.convo.push(val)
+    },
+    setmessage(state, messages) {
+      console.log(messages);
+      state.messages = messages
     }
   },
   actions: {
     createUserProfile({ commit }, { vueApp, user }) {
       //the students data
       const userData = {
+        name: vueApp.lname && vueApp.fname && vueApp.mname,
         fname: vueApp.fname,
         mname: vueApp.mname,
         lname: vueApp.lname,
@@ -105,15 +117,40 @@ const store = new Vuex.Store({
           });
         });
     },
-    getStudentCollection({commit} ) {
+    getStudentCollection({ commit }) {
       const studentArr = [];
       db.collection("gainsville").get()
-      .then((snapshot) => {
-        snapshot.forEach(doc => {
-          studentArr.push(doc.data())
-          commit("setStudentsCollection", studentArr)
+        .then((snapshot) => {
+          snapshot.forEach(doc => {
+            studentArr.push(doc.data())
+            commit("setStudentsCollection", studentArr)
+          })
         })
+    },
+    //  getConvo ({commit},uid) {
+
+    // },
+    sendmessages({ state }, { data }) {//send message to firestore
+      state.firestore.collection("messages")
+        .doc()
+        .set(data)
+        .catch(err => {
+          console.log(err);
+        });
+      // console.log(data, 'Fata')
+    },
+    //get message from firestore
+    async getMessages({ commit, state }) {
+      const messages = [];
+      let convoRef = state.firestore.collection("messages");
+      let convos = await convoRef.get();
+      convos.forEach(doc => {
+        console.log(doc.data(), 'doc')
+        messages.push(doc.data())
       })
+      commit('setmessage', messages)
+    
+
     }
   }
 });

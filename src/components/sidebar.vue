@@ -1,6 +1,14 @@
 <template>
-  <v-navigation-drawer app clipped>
+  <v-navigation-drawer app clipped 
+    mobile-break-point="50"
+    width="260"
+    :mini-variant.sync="mini"
+    v-model="drawer">
       <v-list >
+        <v-list-item @click.stop="mini = !mini">
+             <v-icon>mdi-dots-vertical</v-icon>
+          <v-list-item-title>Show/Hide</v-list-item-title>
+      </v-list-item>
        <v-list-item to="/studentdashboard">
           <v-list-item-action>
             <v-icon>mdi-view-dashboard</v-icon>
@@ -61,6 +69,12 @@
  import { auth } from "../plugins/firebase/firebaseinit";
 export default {
  name: 'Sidebar',
+ data() {
+return {
+  mini: true,
+  drawer: true
+}
+ },
  methods: {
  logOut() {
   auth.signOut().then(() => {

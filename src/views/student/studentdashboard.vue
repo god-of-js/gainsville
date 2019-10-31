@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-card height="180" width="400" class="mt-12 mx-auto pt-4">
-      <v-card-title>Hey, {{ currentUser.lname }} {{ currentUser.fname }} {{ currentUser.mname }} </v-card-title>
+      <v-card-title>Hey, {{ currentUser.name }} </v-card-title>
       <v-card-text class="">You are welcome to GAINSVILLE student portal this is your dashboard</v-card-text>
     </v-card>
     <v-row class="mt-6 d-flex justify-center justify-content-space-between">

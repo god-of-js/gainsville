@@ -6,6 +6,7 @@ import uploadresults from "./views/admin/uploadresults.vue";
 import feesrecords from "./views/admin/feesrecords.vue";
 import studentslist from "./views/admin/studentslist.vue";
 import updatefees from "./views/admin/updatefees.vue";
+import parentchat from "./views/admin/parentchat.vue";
 import addadmin from "./views/admin/addAdmin.vue";
 import manageaccounts from "./views/admin/manageaccounts.vue";
 import post from "./views/admin/adminposts.vue";
@@ -17,10 +18,17 @@ import register from "./views/student/register.vue";
 import studentprofile from "./views/student/studentprofile.vue";
 import student from "./views/student/studentdashboard.vue";
 import adminLayout from "@/layouts/adminlayout.vue"
+import homeLayout from "@/layouts/homelayout.vue"
+import hello from "@/components/HelloWorld.vue"
 import studentLayout from "@/layouts/studentlayout.vue"
 import payment from "./views/student/schoolfees.vue";
 import complaints from "./views/student/complaints.vue";
 import info from "./views/student/info.vue";
+import publicinfo from "./views/student/publicinfo.vue";
+import activities from "./views/student/activities.vue";
+import about from "./views/student/publicinfo.vue";
+import location from "./views/student/publicinfo.vue";
+import staff from "./views/student/publicinfo.vue";
 // import store from './store'
 Vue.use(Router);
 
@@ -31,17 +39,11 @@ const router = new Router({
     {
       path: "*",
       redirect: "/",
-      meta: {
-        requiresAuth: true
-      }
-    },
+    },  
     {
-      path: "/home",
-      component: home
-    },
-    {
-      path: "/",
-      redirect: "/home"
+      path: "/hello",
+      redirect: "/hello",
+      component: hello
     },
     {
       path: "/login",
@@ -58,12 +60,46 @@ const router = new Router({
       }
     },
     {
+      path: '/',
+      component: homeLayout,
+      children: [
+        {
+          path: "/home",
+          component: home
+        },
+        {
+          path: "/publicinfo",
+          component: publicinfo
+        },
+        {
+          path: "/activities",
+          component: activities
+        },
+        {
+          path: "/location",
+          component: location
+        },
+        {
+          path: "/staff",
+          component: staff
+        },
+        {
+          path: "/about",
+          component: about
+        },
+      ]
+    },
+    {
       path: "/",
       component: adminLayout,
       children: [
         {
           path: "/admin",
           component: admin
+        },
+        {
+          path: "/parentchat",
+          component: parentchat
         },
         {
           path: "/studentslist",

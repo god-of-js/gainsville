@@ -1,25 +1,30 @@
 <template>
  <v-content color="white"> 
-   <v-simple-table height="300px">
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">View student information</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="student in studentsCollection" :key="student.fname">
-          <td>{{ student.lname }} {{ student.fame }} {{ student.mname }}</td>
-          <td>View</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+          <v-expansion-panels>
+    <v-expansion-panel
+     v-for="student in studentsCollection" :key="student.fname"
+    >
+      <v-expansion-panel-header>{{ student.lname }} {{ student.fame }} {{ student.mname }}</v-expansion-panel-header>
+      <v-expansion-panel-content>
+        
+            <div>Address: {{ student.address }}</div>
+            <div> Class:{{ student.classi }}</div> 
+            <div> State:{{ student.state }}</div>
+            <div>Gender:{{  student.gender }}</div>
+            <div>Email: {{ student.email }} </div>
+            <div>fathers Name : {{ student.fathersName }}</div>
+            <div>fathers Number: {{ student.dnum }}</div>
+            <div>Mothers Name : {{ student.mothersName }}</div>
+            <div>Mothers Number: {{ student.mnum }}</div>
+            <div>Email: {{ student.email}} </div>
+        </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
  </v-content> 
 </template>
 <script>
  import { mapState } from "vuex";
+import { METHODS } from 'http';
  export default {
      data: () => {
          return {
@@ -31,7 +36,14 @@
      },
      beforeMount() {
           this.$store.dispatch("getStudentCollection");
-          }
+          },
+          methods: {
+           hide() {
+               const hide = document.getElementsByClassName("hide");
+               hide.style.display
+            
+           } 
+          },
  }
 </script>
 <style>
@@ -40,5 +52,8 @@
     }
     hr{
         color: hsv(0, 6%, 86%);
+    }
+    .hide{
+      display: none;
     }
 </style>

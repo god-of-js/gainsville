@@ -1,8 +1,27 @@
 <template>
-    <v-content>
-        <v-card class="mr-12">
-            <v-card-title>Info</v-card-title>
-            <v-card-text>text</v-card-text>
-        </v-card>
-    </v-content>
+<v-content>
+
+
+  <div>
+    <v-card
+      class="d-flex align-start flex-column mb-6"
+      color="grey lighten-2"
+      flat
+      tile
+      height="200"
+    >
+      <v-card
+        v-for="n in 3"
+        :key="n"
+        :class="n === 1 && 'mb-auto'"
+        class="pa-2"
+        outlined
+        tile
+      >
+        Flex item
+      </v-card>
+    </v-card>
+   
+  </div>
+  </v-content>
 </template>

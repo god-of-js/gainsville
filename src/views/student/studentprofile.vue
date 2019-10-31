@@ -1,7 +1,6 @@
 <template>
   <v-content>
-  <v-card class="d-flex flex-row mt-12 ml-12 mr-12 pt-12 pl-12 pr-12 pb-12">
-    <span class="border pt-6 pb-6 ">
+    <span class="border mx-auto mt-4">
       <div class="ml-6  bord">Surname: <span class="space"> {{ currentUser.lname }}</span></div>
       <hr />
       <div class="ml-6  bord">First Name: <span class="space"> {{ currentUser.fname }}</span> </div>
@@ -24,15 +23,6 @@
       <hr />
       <div class="ml-6 ">Home Address: <span class="space"> {{ currentUser.address }}</span> </div>
     </span>
-    <div class="flex-grow-1"></div>
-    <span class="picture">
-      <v-icon class="profpic">mdi-camera</v-icon>
-      <br />
-      <v-card-action>
-        <v-btn >Attach photo</v-btn>
-      </v-card-action>
-    </span>
-  </v-card>
   </v-content>
 </template>
 <script>
@@ -51,15 +41,7 @@ export default {
 };
 </script>
 <style  scoped>
-.profpic {
-  background-color: grey;
-  width: 50px;
-  height: 50px;
-  margin-bottom: 10%;
-  border-radius: 50%;
-  margin-top: 20px;
-  margin-left: 30%;
-}
+
 hr{
   margin-top: 10px;
   margin-bottom: 10px;
@@ -67,10 +49,10 @@ hr{
 .space{
   margin-left: 5%;
 }
-.border{
+/* .border{
   color: black;
   border: solid;
   width: 50%;
-}
+} */
 
 </style>
