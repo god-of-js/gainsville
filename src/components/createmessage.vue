@@ -47,6 +47,7 @@ export default {
             data
           })
           .then(() => {
+            this.$store.dispatch('getMessages');
             this.newmessages === null;
             this.errortext == "";
           });

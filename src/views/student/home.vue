@@ -1,17 +1,16 @@
 <template>
   <v-content>
-    <v-img></v-img>
-    <v-parallax :src="require('../../assets/exams.svg')" class="background" height="1000">
+          <div class="firstlayer">
       <v-row align="center" justify="center">
-        <v-col class="text-center" cols="12">
-          <h1 class="display-1 font-weight-thin mb-4">Gainsville</h1>
-          <h4 class="subheading">Register your ward today!</h4>
-        </v-col>
-      </v-row>
-    </v-parallax>
+            <v-col class="text-center" cols="12">
+              <h1 class="display-1 font-weight-thin mb-4 txtwhite">Gainsville</h1>
+              <h4 class="subheading txtwhite">Register your ward today!</h4>
+            </v-col>
+          </v-row>
+    </div>
 
-    <div class="options mt-n12 pt-4 pb-4">Address: Akpiri bus-stop 2nd branch: okoko iyanishashi</div>
-
+    <!-- <div class="options pt-4 pb-4">Address: Akpiri bus-stop 2nd branch: okoko iyanishashi</div>
+ 07086939858 
     <div class="pt-4">
       <v-row>
         <v-col class="d-flex justify-end flex-column">
@@ -25,14 +24,13 @@
           <span class="d-flex justify-start font ">School Calendar</span> 
         </v-col>
       </v-row>
-    </div>
-  </v-content>
+    </div> -->
+  </v-content>  
 </template>
 
 <style scoped>
-.background {
-    width: 100vw 100vh;
-    background-size: cover;
+.txtwhite{
+  color: white;
 }
 .options {
   border: block;
@@ -46,5 +44,14 @@
 }
 .font{
   font-size: 25px;
+}
+.firstlayer{
+  background-image: url('../../assets/primary.jpg');
+  width: 100%;
+  height: 100%;
+   -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 </style>

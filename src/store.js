@@ -128,7 +128,7 @@ const store = new Vuex.Store({
         })
     },
     //  getConvo ({commit},uid) {
-
+    
     // },
     sendmessages({ state }, { data }) {//send message to firestore
       state.firestore.collection("messages")
@@ -137,7 +137,7 @@ const store = new Vuex.Store({
         .catch(err => {
           console.log(err);
         });
-      // console.log(data, 'Fata')
+      
     },
     //get message from firestore
     async getMessages({ commit, state }) {
