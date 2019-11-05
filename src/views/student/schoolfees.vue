@@ -1,4 +1,5 @@
 <template>
+<v-content>
   <v-card
     class="mx-auto"
     style="max-width: 500px;"
@@ -134,6 +135,7 @@
       </v-card>
     </v-dialog>
   </v-card>
+  </v-content>
 </template>
 
 <script>

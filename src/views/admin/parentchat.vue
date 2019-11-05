@@ -1,44 +1,63 @@
 <template>
   <v-content>
     <div class="chatroom">
-      
+      <div v-chat-scroll="{always: false , smooth: true}" class="messages">
+        <div v-for="message in messages" :key="message.id">
+          <div class="messagebox d-flex justify-end mt-2 pb-2 pt-2">
+            <div class="author">{{message.name}}</div>
+            <div class="message">{{message.message}}</div>
+            <div class="time">{{message.time}}</div>
+          </div>
+        </div>
+        <div v-for="message in adminMessages" :key="message.time">
+          <div class="messagebox d-flex justify-end mt-2 pb-2 pt-2">
+            <div class="author">{{message.name}}</div>
+            <div class="message">{{message.message}}</div>
+            <div class="time">{{message.time}}</div>
+          </div>
+        </div>
+      </div>
+      <createmessage />
     </div>
-    <v-form @submit="submit">
-      <v-row class="text ml-6 mb-n1">
-        <v-textarea auto-grow filled color="green" label="Type a message" rows="1" height="5" ></v-textarea>
-        <v-btn type="submit" class="ml-4 mr-2 mt-2 bn" variant="success">
-          <v-icon>mdi-send</v-icon>
-        </v-btn>
-      </v-row>
-    </v-form>
   </v-content>
 </template>
 
 <script>
-import db from "@/plugins/firebase/firebaseinit.js"
+import { mapState } from "vuex";
+import createmessage from "@/components/admincreatemessage.vue";
 export default {
-  data: () => {
-    return {
-      chat: [],
-    };
+  name: "complaints",
+  props: ["name"],
+  components: {
+    createmessage
+  },
+  computed: {
+    ...mapState([ 'adminMessages', 'messages']),
+    reload() {
+      this.$store.dispatch("getAdminMessages");
+      this.$store.dispatch("getMessages");
+    }
+  },
+  created() {
+    console.log(this.$store.state.adminMessages)
+    console.log(this.$store.state.messages)
+    this.$store.dispatch("getAdminMessages");
+    this.$store.dispatch("getMessages");
   },
   methods: {
-    submit(evt) {
-          evt.preventDefault();
-          
-      }
   }
 };
 </script>
 
 <style>
-.text {
-  position: absolute;
-  width: 95%;
-  bottom: 0px;
+.chatroom {
+  height: 80%;
 }
-.bn {
-  border-radius: 50px;
+.messages {
+  max-height: 90%;
 }
-
+.messagebox {
+  background-color: green;
+  color: white;
+}
 </style>

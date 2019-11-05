@@ -24,6 +24,7 @@ const store = new Vuex.Store({
     all: {},
     allIds: [],
     messages: [],
+    adminMessages: [],
     usersId: null
   },
   mutations: {
@@ -48,8 +49,8 @@ const store = new Vuex.Store({
     setmessage(state, messages) {
       state.messages = messages
     },
-    setuserid(state, userId) {
-      state.usersId = userId
+    setAdminMessage(state, messages) {
+      state.adminMessages = messages
     }
   },
   actions: {
@@ -142,7 +143,7 @@ const store = new Vuex.Store({
 
     },
     //get message from firestore
-    async getMessages({ commit, state }, uid) {
+    async getMessages({ commit }, uid) {
       const messages = [];
       let convoRef = db.collection("messages").where('id', "==", uid);
       let convos = await convoRef.get();
@@ -151,16 +152,17 @@ const store = new Vuex.Store({
       })
       commit('setmessage', messages);
     },
-    sendAdminMessages({ state }, { data }) {//send message to firestore
-      state.firestore.collection("adminMessages")
-        .doc()
-        .set(data)
-        .catch(err => {
-          console.log(err);
-        });
+    //get message from firestore
+    async getAdminMessages({ commit }, uid) {
+      const messages = [];
+      let convoRef = db.collection("adminmessages").where('recieverId', "==", uid);
+      let convos = await convoRef.get();
+      convos.forEach(doc => {
+        messages.push(doc.data())
+      })
+      commit('setAdminMessage', messages);
+    }
 
-    },
-   
   }
 });
 export default store;

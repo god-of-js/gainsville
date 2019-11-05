@@ -2,7 +2,7 @@
   <div class="mt-2">
     <p v-if="errortext">You have to send an actual message.</p>
     <v-form @submit="createmessage">
-      <v-row class="text ml-6  mt-6 mb-n1">
+      <v-row class="text ml-6 mt-6 mb-n1">
         <v-textarea
           auto-grow
           filled
@@ -26,8 +26,8 @@ export default {
   props: ["name"],
   data() {
     return {
-      newmessages: null,
-      errortext: null
+      newmessages: "",
+      errortext: ""
     };
   },
   methods: {
@@ -39,9 +39,10 @@ export default {
           id: this.$store.state.currentUser.userId,
           message: this.newmessages,
           name: this.$store.state.currentUser.lname,
-          time: Date.now()
+          time: Date.now(),
+          recieverId: this.$store.state.currentUser.userId
         };
-        db.collection("messages")
+        db.collection("adminmessages")
           .doc()
           .set(data)
           .then(() => {
@@ -59,11 +60,10 @@ export default {
 };
 </script>
 <style scoped>
-  .text {
+.text {
   position: absolute;
   width: 95%;
   bottom: 0px;
-  height: 5%;
 }
 .bn {
   border-radius: 50px;

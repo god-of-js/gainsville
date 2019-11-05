@@ -3,6 +3,13 @@
     <div class="chatroom">
       <div v-chat-scroll="{always: false , smooth: true}" class="messages">
         <div v-for="message in messages" :key="message.id">
+          <div class="adminbox d-flex justify-start mt-2 pb-2 pt-2">
+            <div class="author">{{message.name}}</div>
+            <div class="message">{{message.message}}</div>
+            <div class="time">{{message.time}}</div>
+          </div>
+        </div>
+        <div v-for="message in messages" :key="message.id">
           <div class="messagebox d-flex justify-end mt-2 pb-2 pt-2">
             <div class="author">{{message.name}}</div>
             <div class="message">{{message.message}}</div>
@@ -25,7 +32,10 @@ export default {
     createmessage
   },
   computed: {
-    ...mapState(["messages"])
+    ...mapState(["messages", "adminMessages"]),
+    reload() {
+      this.$store.dispatch("getMessages");
+    }
   },
   created() {
     this.$store.dispatch("getMessages");
@@ -37,18 +47,13 @@ export default {
 </script>
 
 <style>
-.text {
-  position: absolute;
-  width: 95%;
-  bottom: 0px;
-}
-.bn {
-  border-radius: 50px;
-  background-color: green;
-}
 .messagebox {
   background-color: green;
   color: white;
-  
+  /* width: 60%; */
+}
+.adminbox{
+  background-color: beige;
+  width: 40%;
 }
 </style>
