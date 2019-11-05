@@ -35,20 +35,20 @@ export default {
       valid: false,
       nameRules: [v => !!v || "Name is required"],
       passRules: [v => !!v || "Password is required"],
-      fname: "Henry",
-      mname: "Tochukwu",
-      lname: "Eze",
-      mnum: "09058100541",
-      dnum: "09879294297",
-      address: "festac lagos",
+      fname: "",
+      mname: "",
+      lname: "",
+      mnum: "",
+      dnum: "",
+      address: "",
       loading: false,
-      email: "mmm@gmail.com",
-      selectedState: "imo",
-      selectedGender: "male",
-      mothersName: "mom",
-      fathersName: "dad",
-      password: "mmmmmmmm",
-      classi: "nursery one",
+      email: "",
+      selectedState: "",
+      selectedGender: "",
+      mothersName: "",
+      fathersName: "",
+      password: "",
+      classi: "",
       state: [
         "Abia",
         "Adamawa",
@@ -101,6 +101,7 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(result => {
           let vueApp = this; //because *this* is not available in the store
+         
           this.$store.dispatch("createUserProfile", {
             //dispatch is used to activate actions. we are dispatching this values to the store actions
             vueApp,

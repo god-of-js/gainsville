@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-2">
     <p v-if="errortext">You have to send an actual message.</p>
     <v-form @submit="createmessage">
       <v-row class="text ml-6 mb-n1">
@@ -21,7 +21,6 @@
   </div>
 </template>
 <script>
-import uuidv4 from "uuid/v4";
 import { db } from "@/plugins/firebase/firebaseinit.js";
 export default {
   name: "createmessage",
@@ -35,21 +34,24 @@ export default {
   methods: {
     createmessage(evt) {
       evt.preventDefault();
+      const vueApp = this;
       if (this.newmessages) {
         const data = {
-          id: uuidv4(),
+          id: this.$store.state.currentUser.userId,
           message: this.newmessages,
           name: this.$store.state.currentUser.lname,
           time: Date.now()
         };
-        this.$store
-          .dispatch("sendmessages", {
-            data
-          })
+        db.collection("messages")
+          .doc()
+          .set(data)
           .then(() => {
-            this.$store.dispatch('getMessages');
-            this.newmessages === null;
-            this.errortext == "";
+            this.newmessages == null;
+            this.errortext == null;
+            console.log(this.newmessages);
+          })
+          .catch(err => {
+            console.log(err);
           });
       } else {
         this.errortext = "You can only send an actual message";

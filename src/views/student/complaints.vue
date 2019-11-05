@@ -2,43 +2,36 @@
   <v-content>
     <div class="chatroom">
       <div v-chat-scroll="{always: false , smooth: true}" class="messages">
-         <div v-for="message in messages" :key="message.id">
-          <span>{{message.name}}</span>
-          <span>{{message.message}}</span>
-          <span>{{message.time}}</span>
-        </div> 
+        <div v-for="message in messages" :key="message.id">
+          <div class="messagebox d-flex justify-end mt-2 pb-2 pt-2">
+            <div class="author">{{message.name}}</div>
+            <div class="message">{{message.message}}</div>
+            <div class="time">{{message.time}}</div>
+          </div>
+        </div>
       </div>
-    
       <createmessage />
     </div>
   </v-content>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import createmessage from '@/components/createmessage.vue'
+import { mapState } from "vuex";
+import createmessage from "@/components/createmessage.vue";
 export default {
   name: "complaints",
   props: ["name"],
   components: {
     createmessage
   },
-  data: () => {
-    return {
-    };
-  },
   computed: {
-    ...mapState([
-      "messages"
-    ])
+    ...mapState(["messages"])
   },
   created() {
-    // console.log(this.$store.state.messages, 'messages')
-    this.$store.dispatch('getMessages')
+    this.$store.dispatch("getMessages");
   },
   methods: {
-    message(){
-    }
+    message() {}
   }
 };
 </script>
@@ -52,5 +45,10 @@ export default {
 .bn {
   border-radius: 50px;
   background-color: green;
+}
+.messagebox {
+  background-color: green;
+  color: white;
+  
 }
 </style>
