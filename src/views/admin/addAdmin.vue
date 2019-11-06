@@ -94,7 +94,6 @@ methods:{
           });
         })
         .catch((e) => {
-            console.log(e)
           this.loading = !this.loading;
         })
     },
@@ -127,7 +126,6 @@ methods:{
         })
         .catch((e) => {
           this.loading != this.loading
-            console.log(e)
         })
     }
 }

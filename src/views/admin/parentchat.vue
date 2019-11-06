@@ -39,8 +39,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.state.adminMessages)
-    console.log(this.$store.state.messages)
     this.$store.dispatch("getAdminMessages");
     this.$store.dispatch("getMessages");
   },

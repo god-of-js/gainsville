@@ -90,9 +90,7 @@ export default {
       gender: ["male", "female"]
     };
   },
-  computed: {
-    ...mapState(["currentStudent"])
-  },
+  
   methods: {
     reg(e) {
       e.preventDefault();

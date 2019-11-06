@@ -33,7 +33,6 @@ export default {
   methods: {
     createmessage(evt) {
       evt.preventDefault();
-      const vueApp = this;
       if (this.newmessages) {
         const data = {
           id: this.$store.state.currentUser.userId,
@@ -49,9 +48,7 @@ export default {
             this.newmessages == null;
             this.errortext == null;
           })
-          .catch(err => {
-            console.log(err);
-          });
+          
       } else {
         this.errortext = "You can only send an actual message";
       }
