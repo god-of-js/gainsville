@@ -10,7 +10,7 @@
         <v-text-field :rules="nameRules" label="Email" v-model="email" required></v-text-field>
         <v-autocomplete :items="state" label="State" v-model="selectedState" required></v-autocomplete>
         <v-autocomplete :items="gender" label="Gender" v-model="selectedGender" required></v-autocomplete>
-        <v-text-field :rules="nameRules" label="Present Class" v-model="classi" required></v-text-field>
+        <v-autocomplete :items="classi" label="Class" v-model="selectedClass" required></v-autocomplete>
         <v-text-field :rules="nameRules" label="Mothers name" v-model="mothersName" required></v-text-field>
         <v-text-field :rules="nameRules" label="Phone Number of mother" v-model="mnum" required></v-text-field>
         <v-text-field :rules="nameRules" label="Fathers name" v-model="fathersName" required></v-text-field>
@@ -48,7 +48,7 @@ export default {
       mothersName: "",
       fathersName: "",
       password: "",
-      classi: "",
+      selectedClass: "",
       state: [
         "Abia",
         "Adamawa",
@@ -87,7 +87,19 @@ export default {
         "Yobe",
         "Zamfara"
       ],
-      gender: ["male", "female"]
+      gender: ["male", "female"],
+      classi: [
+        'Play Group',
+        'Reception 1',
+        'Reception 2',
+        'Nursery 1',
+        'Nursery 2',
+        'Grade 1',
+        'Grade 2',
+        'Grade 3',
+        'Grade 4',
+        'Grade 5',
+      ]
     };
   },
   
@@ -107,21 +119,21 @@ export default {
           });
            
         })
-        .catch(e => {
-          this.loading = !this.loading;
-           const Toast = this.$swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            type: 'success',
-            title: 'Signed in successfully'
-          })
-          Toast.fire({
-            type: "error",
-            title: e
-          })
-        });
+        // .catch(e => {
+        //   this.loading = !this.loading;
+        //    const Toast = this.$swal.mixin({
+        //     toast: true,
+        //     position: 'top-end',
+        //     showConfirmButton: false,
+        //     timer: 3000,
+        //     type: 'success',
+        //     title: 'Signed in successfully'
+        //   })
+        //   Toast.fire({
+        //     type: "error",
+        //     title: e
+        //   })
+        // });
     }
   }
 };

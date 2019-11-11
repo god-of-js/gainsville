@@ -3,6 +3,7 @@ import Router from "vue-router";
 import admin from "./views/admin/admindashboard.vue";
 import updatebooks from "./views/admin/updatebooks.vue";
 import uploadresults from "./views/admin/uploadresults.vue";
+import confirmfees from "./views/admin/confirmfees.vue";
 import feesrecords from "./views/admin/feesrecords.vue";
 import studentslist from "./views/admin/studentslist.vue";
 import updatefees from "./views/admin/updatefees.vue";
@@ -96,6 +97,10 @@ const router = new Router({
         {
           path: "/admin",
           component: admin
+        },
+        {
+          path: "/confirmfees",
+          component: confirmfees
         },
         {
           path: "/parentchat",

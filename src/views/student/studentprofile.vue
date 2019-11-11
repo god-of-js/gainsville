@@ -19,7 +19,7 @@
       <v-divider></v-divider>
       <div class="ml-6  bord">Father's Name:  <span class="space">{{ currentUser.fathersName }} </span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Father's Number: <span class="space">{{ currentUser.fnum }} </span></div>
+      <div class="ml-6  bord">Father's Number: <span class="space">{{ currentUser.dnum }} </span></div>
       <v-divider></v-divider>
       <div class="ml-6 ">Home Address: <span class="space"> {{ currentUser.address }}</span> </div>
     </span>

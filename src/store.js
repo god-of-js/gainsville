@@ -6,9 +6,7 @@ auth.onAuthStateChanged(user => {
   //if user exists commit setscurrentUser else  null
   user
     ? (async () => {
-      store.commit("setCurrentUser", user);
       store.dispatch("getUserProfile", user.uid);
-      store.dispatch("getConvo", user.uid);
       store.dispatch("getMessages", user.uid);
     })()
     : null;
@@ -17,15 +15,11 @@ const store = new Vuex.Store({
   state: {
     currentUser: null,
     userProfile: null,
-    isAdmin: false,
-    isSuperAdmin: false,
     studentsCollection: [],
-    convo: [],
-    all: {},
-    allIds: [],
     messages: [],
     adminMessages: [],
-    usersId: null
+    field: [],
+    no_of_fees_inputs: null
   },
   mutations: {
     setCurrentUser: (state, val) => {
@@ -34,23 +28,20 @@ const store = new Vuex.Store({
     setUserProfile(state, val) {
       state.userProfile = val;
     },
-    setAdmin(state, val) {
-      state.isAdmin = val;
-    },
-    setSuperAdmin(state, val) {
-      state.isSuperAdmin = val;
-    },
     setStudentsCollection(state, val) {
       state.studentsCollection = val;
-    },
-    setConvos(state, val) {
-      state.convo.push(val)
     },
     setmessage(state, messages) {
       state.messages = messages
     },
     setAdminMessage(state, messages) {
       state.adminMessages = messages
+    },
+    set_no_of_fees(state, {numba, classiSelected}){
+      state.no_of_fees_inputs = numba
+    },
+    setFields(state, fields) {
+      state.field.push(fields)
     }
   },
   actions: {
@@ -64,7 +55,7 @@ const store = new Vuex.Store({
         mnum: vueApp.mnum,
         dnum: vueApp.dnum,
         address: vueApp.address,
-        classi: vueApp.classi,
+        classi: vueApp.selectedClass,
         fathersName: vueApp.fathersName,
         mothersName: vueApp.mothersName,
         state: vueApp.selectedState,
@@ -77,24 +68,26 @@ const store = new Vuex.Store({
         .doc()
         .set(userData) // passing the user data to firestore
         .then(() => {
+          console.log('user')
           commit("setUserProfile", userData); //commiting user data to the store
           commit("setStudentCollection", userData);
+          console.log('them')
           vueApp.$router.push("/studentdashboard");
         })
-        .then(() => {
-          const Toast = vueApp.$swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            type: "success",
-            title: "Signed in successfully"
-          });
-          Toast.fire({
-            type: "success",
-            title: "Successfully logged in"
-          });
+      .then(() => {
+        const Toast = vueApp.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "success",
+          title: "Signed in successfully"
         });
+        Toast.fire({
+          type: "success",
+          title: "Successfully logged in"
+        });
+      });
     },
     adminCheck({ commit }, { vueApp, user }) {
       db.collection("gainsville")
@@ -132,19 +125,12 @@ const store = new Vuex.Store({
           })
         })
     },
-    async getConvo({ commit, state }, uid) {
-      const convo = [];
-      let convoRef = state.firestore.collection("messages").where("userId", "==", uid);
-      let convos = await convoRef.get();
-      convos.forEach(doc => {
-        convo.push(doc.data())
-      })
-      commit('setConvos', convo)
-
-    },
+    
     //get message from firestore
-    async getMessages({ commit }, uid) {
+    async getMessages({ commit, state }) {
       const messages = [];
+     const uid = state.currentUser.userId;
+     console.log(uid)
       let convoRef = db.collection("messages").where('id', "==", uid);
       let convos = await convoRef.get();
       convos.forEach(doc => {
@@ -161,7 +147,33 @@ const store = new Vuex.Store({
         messages.push(doc.data())
       })
       commit('setAdminMessage', messages);
-    }
+    },
+  get_no_of_fees({commit}, { numba, vueApp, classiSelected }) {
+    commit('set_no_of_fees', {numba, classiSelected});
+  },
+  get_no_of_books({commit}, { numba, vueApp, classiSelected }) {
+    commit('set_no_of_fees', {numba, classiSelected});
+  },
+  getBooks({commit, state}, { obj, year, vueApp, sum }) {
+    const data = {obj, year, sum };
+    db.collection("schoolfees")
+    .doc()
+    .set(data) // passing the user data to firestore
+      vueApp.$router.push('/admin')
+      state.no_of_fees_inputs = null
+  },
+  get_results({commit}, fields) {
+    // db.collection('school_fees').doc().set(fields);
+    commit('setResults', { fields, vueApp });
+  },
+  getFees({commit, state}, { obj, year, vueApp, sum }) {
+    const data = {obj, year, sum };
+    db.collection("schoolfees")
+    .doc()
+    .set(data) // passing the user data to firestore
+      vueApp.$router.push('/admin')
+      state.no_of_fees_inputs = null
+  }
 
   }
 });
