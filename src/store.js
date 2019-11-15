@@ -11,22 +11,23 @@ auth.onAuthStateChanged(user => {
     })()
     : null;
 });
+let user = window.localStorage.getItem('currentUser')
 const store = new Vuex.Store({
   state: {
+    user: user ? JSON.parse(user) : [], //local storage current user 
     currentUser: null,
-    userProfile: null,
     studentsCollection: [],
     messages: [],
     adminMessages: [],
     field: [],
-    no_of_fees_inputs: null
+    noOfFeesInputs: null,
+    noOfResultsInputs: null,
+    noOfBooksInputs: null,
+    schoolFees: null
   },
   mutations: {
     setCurrentUser: (state, val) => {
       state.currentUser = val;
-    },
-    setUserProfile(state, val) {
-      state.userProfile = val;
     },
     setStudentsCollection(state, val) {
       state.studentsCollection = val;
@@ -37,11 +38,18 @@ const store = new Vuex.Store({
     setAdminMessage(state, messages) {
       state.adminMessages = messages
     },
-    set_no_of_fees(state, {numba, classiSelected}){
-      state.no_of_fees_inputs = numba
+    setNoOfFees(state, { numba }) {
+      state.noOfFeesInputs = numba
     },
-    setFields(state, fields) {
-      state.field.push(fields)
+    setNoOfResults(state, { numba }) {
+      state.noOfResultsInputs = numba
+    },
+    setNoOfBooks(state, { numba }) {
+      state.noOfBooksInputs = numba
+    },
+    setSchoolFees(state, val) {
+      state.schoolFees = val;
+
     }
   },
   actions: {
@@ -68,26 +76,25 @@ const store = new Vuex.Store({
         .doc()
         .set(userData) // passing the user data to firestore
         .then(() => {
-          console.log('user')
           commit("setUserProfile", userData); //commiting user data to the store
           commit("setStudentCollection", userData);
-          console.log('them')
+          window.localStorage.setItem('currentUser',JSON.stringify(userData))
           vueApp.$router.push("/studentdashboard");
         })
-      .then(() => {
-        const Toast = vueApp.$swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          type: "success",
-          title: "Signed in successfully"
+        .then(() => {
+          const Toast = vueApp.$swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "Signed in successfully"
+          });
+          Toast.fire({
+            type: "success",
+            title: "Successfully logged in"
+          });
         });
-        Toast.fire({
-          type: "success",
-          title: "Successfully logged in"
-        });
-      });
     },
     adminCheck({ commit }, { vueApp, user }) {
       db.collection("gainsville")
@@ -111,6 +118,7 @@ const store = new Vuex.Store({
         .get()
         .then(query => {
           query.forEach(doc => {
+            window.localStorage.setItem('currentUser',JSON.stringify(doc.data()))
             commit("setCurrentUser", doc.data());
           });
         });
@@ -125,12 +133,10 @@ const store = new Vuex.Store({
           })
         })
     },
-    
     //get message from firestore
     async getMessages({ commit, state }) {
       const messages = [];
-     const uid = state.currentUser.userId;
-     console.log(uid)
+      const uid = state.user.userId;
       let convoRef = db.collection("messages").where('id', "==", uid);
       let convos = await convoRef.get();
       convos.forEach(doc => {
@@ -141,39 +147,57 @@ const store = new Vuex.Store({
     //get message from firestore
     async getAdminMessages({ commit }, uid) {
       const messages = [];
-      let convoRef = db.collection("adminmessages").where('recieverId', "==", uid);
+      let convoRef = db.collection("adminmessages").where('recieverId', "==");
       let convos = await convoRef.get();
       convos.forEach(doc => {
         messages.push(doc.data())
       })
       commit('setAdminMessage', messages);
     },
-  get_no_of_fees({commit}, { numba, vueApp, classiSelected }) {
-    commit('set_no_of_fees', {numba, classiSelected});
-  },
-  get_no_of_books({commit}, { numba, vueApp, classiSelected }) {
-    commit('set_no_of_fees', {numba, classiSelected});
-  },
-  getBooks({commit, state}, { obj, year, vueApp, sum }) {
-    const data = {obj, year, sum };
-    db.collection("schoolfees")
-    .doc()
-    .set(data) // passing the user data to firestore
+    getNoOfFees({ commit }, { numba, classiSelected }) {
+      commit('setNoOfFees', { numba, classiSelected });
+    },
+    getNoOfResults({ commit }, { numba, classiSelected }) {
+      commit('setNoOfResults', { numba, classiSelected });
+    },
+    getNoOfBooks({ commit }, { numba, vueApp, classiSelected }) {
+      commit('setNoOfBooks', { numba, classiSelected });
+    },
+    getBooks({ state }, { obj, year, vueApp, sum }) {
+      const data = { obj, year, sum };
+      db.collection("schoolBooks")
+        .doc()
+        .set(data) // passing the user data to firestore
       vueApp.$router.push('/admin')
       state.no_of_fees_inputs = null
-  },
-  get_results({commit}, fields) {
-    // db.collection('school_fees').doc().set(fields);
-    commit('setResults', { fields, vueApp });
-  },
-  getFees({commit, state}, { obj, year, vueApp, sum }) {
-    const data = {obj, year, sum };
-    db.collection("schoolfees")
-    .doc()
-    .set(data) // passing the user data to firestore
+    },
+    getResults({ state }, { obj, year, vueApp, sum }) {
+      const data = { obj, year, sum };
+      db.collection("schoolresults")
+        .doc()
+        .set(data) // passing the user data to firestore
       vueApp.$router.push('/admin')
       state.no_of_fees_inputs = null
-  }
+    },
+    getFees({ state }, { obj, year, vueApp, sum }) {
+      const data = { obj, year, sum };
+      db.collection("schoolfees")
+        .doc()
+        .set(data) // passing the user data to firestore
+      vueApp.$router.push('/admin')
+      state.no_of_fees_inputs = null
+    },
+    getFeesFromDb({ commit, state }) {
+      db.collection("schoolfees")
+        .where('year', '==', state.user.classi)
+        .get()
+        .then(query => {
+          query.forEach(doc => {
+            commit("setSchoolFees", doc.data());
+            console.log(doc.data())
+          });
+        });
+    }
 
   }
 });

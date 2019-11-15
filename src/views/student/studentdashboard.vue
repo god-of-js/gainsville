@@ -16,9 +16,6 @@
   },
   mounted() {
     },
-    created() {
-      this.$store.dispatch("getUserProfile")
-    },
   computed: { 
     ...mapState(["currentUser"]),
   },

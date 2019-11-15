@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-card
-      v-if="this.$store.state.no_of_reports_inputs == null"
+      v-if="this.$store.state.noOfResultsInputs == null"
       width="500"
       class="mx-auto pr-4 pl-4 pb-4 mt-12"
     >
@@ -11,7 +11,7 @@
         <v-btn type="submit">submit</v-btn>
       </v-form>
     </v-card>
-    <v-container v-if="this.$store.state.no_of_fees_inputs !=  null">
+    <v-container v-if="this.$store.state.noOfResultsInputs !=  null">
       <v-form @submit="fill_fields" action="submit" v-model="valid">
         <v-row>
           <v-text-field v-model="field1" label="Name of field(In words)"></v-text-field>
@@ -136,6 +136,7 @@ export default {
        this.total += Number(obj['v' + i]) ;
       }
        const sum = this.total 
+       console.log(sum)
       let vueApp = this;
       this.$store.dispatch("getResults", {obj, year, vueApp, sum});
     },
@@ -143,7 +144,7 @@ export default {
       const numba = this.number;
       const classiSelected = this.selectedClass;
       const vueApp = this;
-      this.$store.dispatch("get_no_of_results", { numba, vueApp, classiSelected });
+      this.$store.dispatch("getNoOfResults", { numba, vueApp, classiSelected });
     }
   }
 };
