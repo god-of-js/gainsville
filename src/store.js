@@ -23,7 +23,8 @@ const store = new Vuex.Store({
     noOfFeesInputs: null,
     noOfResultsInputs: null,
     noOfBooksInputs: null,
-    schoolFees: null
+    schoolFees: null,
+    schoolBooks: null
   },
   mutations: {
     setCurrentUser: (state, val) => {
@@ -50,13 +51,16 @@ const store = new Vuex.Store({
     setSchoolFees(state, val) {
       state.schoolFees = val;
 
+    },
+    setSchoolBooks(state, val) {
+      state.schoolBooks = val;
+
     }
   },
   actions: {
     createUserProfile({ commit }, { vueApp, user }) {
       //the students data
       const userData = {
-        name: vueApp.lname && vueApp.fname && vueApp.mname,
         fname: vueApp.fname,
         mname: vueApp.mname,
         lname: vueApp.lname,
@@ -145,7 +149,7 @@ const store = new Vuex.Store({
       commit('setmessage', messages);
     },
     //get message from firestore
-    async getAdminMessages({ commit }, uid) {
+    async getAdminMessages({ commit }) {
       const messages = [];
       let convoRef = db.collection("adminmessages").where('recieverId', "==");
       let convos = await convoRef.get();
@@ -160,16 +164,17 @@ const store = new Vuex.Store({
     getNoOfResults({ commit }, { numba, classiSelected }) {
       commit('setNoOfResults', { numba, classiSelected });
     },
-    getNoOfBooks({ commit }, { numba, vueApp, classiSelected }) {
+    getNoOfBooks({ commit }, { numba, classiSelected }) {
       commit('setNoOfBooks', { numba, classiSelected });
     },
     getBooks({ state }, { obj, year, vueApp, sum }) {
-      const data = { obj, year, sum };
+      const inputs = Number(state.noOfBooksInputs)
+      const data = { obj, year, sum , inputs};
       db.collection("schoolBooks")
         .doc()
         .set(data) // passing the user data to firestore
       vueApp.$router.push('/admin')
-      state.no_of_fees_inputs = null
+      state.noOfBooksInputs = null
     },
     getResults({ state }, { obj, year, vueApp, sum }) {
       const data = { obj, year, sum };
@@ -180,12 +185,13 @@ const store = new Vuex.Store({
       state.no_of_fees_inputs = null
     },
     getFees({ state }, { obj, year, vueApp, sum }) {
-      const data = { obj, year, sum };
+     const inputs = Number(state.noOfFeesInputs)
+      const data = { obj, year, sum, inputs };
       db.collection("schoolfees")
         .doc()
         .set(data) // passing the user data to firestore
       vueApp.$router.push('/admin')
-      state.no_of_fees_inputs = null
+      state.noOfFeesInputs = null
     },
     getFeesFromDb({ commit, state }) {
       db.collection("schoolfees")
@@ -194,7 +200,16 @@ const store = new Vuex.Store({
         .then(query => {
           query.forEach(doc => {
             commit("setSchoolFees", doc.data());
-            console.log(doc.data())
+          });
+        });
+    },
+    getBooksFromDb({ commit, state }) {
+      db.collection("schoolBooks")
+        .where('year', '==', state.user.classi)
+        .get()
+        .then(query => {
+          query.forEach(doc => {
+            commit("setSchoolBooks", doc.data());
           });
         });
     }

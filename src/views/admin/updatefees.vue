@@ -73,6 +73,10 @@
           <v-spacer></v-spacer>
           <v-text-field v-model="fee12" label="Amount of fees (In numbers)" type="number"></v-text-field>
         </v-row>
+        <!-- <v-row>
+          <v-text-field v-model="words" label="Total amount of fees (In Words)"></v-text-field>
+          <v-text-field ><v-text-field>
+        </v-row> -->
         <v-btn color="primary" class="d-flex justify-center" type="submit">Submit fields</v-btn>
       </v-form>
     </v-container>
@@ -137,7 +141,7 @@ export default {
       }
        const sum = this.total 
       let vueApp = this;
-      this.$store.dispatch("getFees", {obj, year, vueApp, sum});
+      this.$store.dispatch("getFees", {obj, year, vueApp, sum, });
     },
     inputNumberOfFields() {
       const numba = this.number;

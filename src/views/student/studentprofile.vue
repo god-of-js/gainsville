@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <span class="border  mt-6">
+    <div class="border  mt-6">
       <div class="ml-6  bord">Surname: <span class="space"> {{ currentUser.lname }}</span></div>
       <v-divider></v-divider>
       <div class="ml-6  bord">First Name: <span class="space"> {{ currentUser.fname }}</span> </div>
@@ -22,7 +22,7 @@
       <div class="ml-6  bord">Father's Number: <span class="space">{{ currentUser.dnum }} </span></div>
       <v-divider></v-divider>
       <div class="ml-6 ">Home Address: <span class="space"> {{ currentUser.address }}</span> </div>
-    </span>
+    </div>
   </v-content>
 </template>
 <script>
@@ -31,7 +31,6 @@ export default {
   name: "Profile",
   data: () => {
     return {
-      selectedFile: null
     };
   },
   computed: {
