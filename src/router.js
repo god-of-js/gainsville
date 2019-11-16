@@ -150,13 +150,13 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
-      // beforeEnter: ((to, from, next) => {
-      //   store.dispatch('getUserProfile')
-      //   console.log(store)
-      //   if(store.state.currentUser.isAdmin == true) next();
-      //   else next('/login');
+      beforeEnter: ((to, from, next) => {
+        store.dispatch('getUserProfile')
+        console.log(store)
+        if(store.state.user) next();
+        else next('/login');
        
-      //   })
+        })
     },
     {
       path: "/",

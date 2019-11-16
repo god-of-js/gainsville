@@ -36,7 +36,6 @@ export default {
   computed: {
     ...mapState(["currentUser"])
   },
-  methods: {}
 };
 </script>
 <style  scoped>
@@ -48,10 +47,6 @@ hr{
 .space{
   margin-left: 5%;
 }
-/* .border{
-  color: black;
-  border: solid;
-  width: 50%;
-} */
+
 
 </style>
