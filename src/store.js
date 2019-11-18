@@ -3,9 +3,11 @@ import Vuex from "vuex";
 import { auth, db } from "@/plugins/firebase/firebaseinit";
 Vue.use(Vuex);
 auth.onAuthStateChanged(user => {
+  
   //if user exists commit setscurrentUser else  null
   user
     ? (async () => {
+      // console.log(user.uid)
       store.dispatch("getUserProfile", user.uid);
       store.dispatch("getMessages", user.uid);
     })()
@@ -73,15 +75,15 @@ const store = new Vuex.Store({
         state: vueApp.selectedState,
         gender: vueApp.selectedGender,
         email: vueApp.email,
-        userId: user.uid
+        userId: user.uid,
+        isStudent: true,
+        isAdmin: false
       };
       //adding to firestore collection creating the gainsville collection
       db.collection("gainsville")
         .doc()
         .set(userData) // passing the user data to firestore
-        .then(() => {
-          commit("setUserProfile", userData); //commiting user data to the store
-          commit("setStudentCollection", userData);
+        .then(() => {; //commiting user data to the store
           window.localStorage.setItem('currentUser',JSON.stringify(userData))
           vueApp.$router.push("/studentdashboard");
         })
