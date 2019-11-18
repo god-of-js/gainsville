@@ -49,12 +49,12 @@
         </v-list-item-action>
         <v-list-item-content>Suggestions and Complaints</v-list-item-content>
       </v-list-item>
-      <v-list-item to="/info">
+      <!-- <v-list-item to="/info">
         <v-list-item-action>
           <v-icon>info</v-icon>
         </v-list-item-action>
         <v-list-item-content>Informations</v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item @click="logOut">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>

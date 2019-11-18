@@ -8,7 +8,8 @@
         </v-col>
       </v-row>
     </div>
-    <v-card class="pl-4 pr-4">
+    <p class="text-center mt-12">List of books for the term has not been uploaded yet</p>
+    <v-card class="pl-4 pr-4" v-if="this.$store.state.schoolBooks != null">
       <div>
         <div class="firstlayer ml-4">
           <v-row >

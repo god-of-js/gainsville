@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-2">
+  <v-content class="mt-2">
     <p v-if="errortext">You have to send an actual message.</p>
     <v-form @submit="createmessage" ref="form">
-      <v-row class="text ml-6 mt-6 mb-n1">
+      <v-row class="text ml-n12 mt-6 mb-n1">
         <v-textarea
           auto-grow
           filled
@@ -17,7 +17,7 @@
         </v-btn>
       </v-row>
     </v-form>
-  </div>
+  </v-content>
 </template>
 <script>
 import { db } from "@/plugins/firebase/firebaseinit.js";
@@ -58,6 +58,7 @@ export default {
   position: fixed;
   width: 89%;
   bottom: 0px;
+  
 }
 .bn {
   border-radius: 50px;
