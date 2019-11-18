@@ -43,12 +43,12 @@
         </v-list-item-action>
         <v-list-item-content>Payments</v-list-item-content>
       </v-list-item>
-      <v-list-item to="/complaints">
+      <!-- <v-list-item to="/complaints">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
         <v-list-item-content>Suggestions and Complaints</v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
       <!-- <v-list-item to="/info">
         <v-list-item-action>
           <v-icon>info</v-icon>

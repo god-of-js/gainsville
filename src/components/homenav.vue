@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar app clipped-left dense color="transparent" class="mb-auto">
-      <v-toolbar-title>GAINSVILLE SCHOOLS</v-toolbar-title>
+      <v-toolbar-title>GAINSVILLE CHILDREN ACADEMY</v-toolbar-title>
       <!-- <v-spacer></v-spacer> -->
       <div class="flex-grow-1"></div>
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="icon"></v-app-bar-nav-icon> -->

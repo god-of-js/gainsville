@@ -3,8 +3,8 @@
     <div class="firstlayer">
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12">
-          <h1 class="display-1 font-weight-thin mb-4 txtwhite">Gainsville</h1>
-          <h4 class="subheading txtwhite">Register your ward today!</h4>
+          <h1 class="display-1 font-weight-thin mb-4 txtwhite">Gainsville Children Academy</h1>
+          <h4 class="subheading txtwhite">Register your child today!</h4>
         </v-col>
       </v-row>
     </div>

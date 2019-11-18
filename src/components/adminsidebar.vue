@@ -30,12 +30,7 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item to="/addadmin">
-        <v-list-item-action>
-          <v-icon>mdi-contacts</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>Add Admin</v-list-item-content>
-      </v-list-item>
+     
       <v-list-item to="/updatebooks">
         <v-list-item-action>
           <v-icon>mdi-book</v-icon>
@@ -48,12 +43,12 @@
         </v-list-item-action>
         <v-list-item-content>Add Payments</v-list-item-content>
       </v-list-item>
-      <v-list-item to="/complaintspage">
+      <!-- <v-list-item to="/complaintspage">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
         <v-list-item-content>Parent Chat</v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item to="/manageaccounts">
         <v-list-item-action>
           <v-icon>mdi-account-group</v-icon>
