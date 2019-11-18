@@ -7,7 +7,6 @@ auth.onAuthStateChanged(user => {
   //if user exists commit setscurrentUser else  null
   user
     ? (async () => {
-      // console.log(user.uid)
       store.dispatch("getUserProfile", user.uid);
       store.dispatch("getMessages", user.uid);
     })()
@@ -60,7 +59,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    createUserProfile({ commit }, { vueApp, user }) {
+    createUserProfile( { vueApp, user }) {
       //the students data
       const userData = {
         fname: vueApp.fname,
@@ -83,7 +82,7 @@ const store = new Vuex.Store({
       db.collection("gainsville")
         .doc()
         .set(userData) // passing the user data to firestore
-        .then(() => {; //commiting user data to the store
+        .then(() => {
           window.localStorage.setItem('currentUser',JSON.stringify(userData))
           vueApp.$router.push("/studentdashboard");
         })

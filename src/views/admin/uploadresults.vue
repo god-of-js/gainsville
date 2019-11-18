@@ -136,7 +136,6 @@ export default {
        this.total += Number(obj['v' + i]) ;
       }
        const sum = this.total 
-       console.log(sum)
       let vueApp = this;
       this.$store.dispatch("getResults", {obj, year, vueApp, sum});
     },
