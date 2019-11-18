@@ -1,5 +1,5 @@
 <template>
-  <v-content class="mt-2">
+  <div class="mt-2">
     <p v-if="errortext">You have to send an actual message.</p>
     <v-form @submit="createmessage" ref="form">
       <v-row class="text ml-6 mt-6 mb-n1">
@@ -17,7 +17,7 @@
         </v-btn>
       </v-row>
     </v-form>
-  </v-content>
+  </div>
 </template>
 <script>
 import { db } from "@/plugins/firebase/firebaseinit.js";

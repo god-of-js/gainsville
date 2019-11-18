@@ -59,7 +59,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    createUserProfile( { vueApp, user }) {
+    createUserProfile({ commit, state }, { vueApp, user }) {
       //the students data
       const userData = {
         fname: vueApp.fname,
@@ -78,12 +78,14 @@ const store = new Vuex.Store({
         isStudent: true,
         isAdmin: false
       };
+      
+      window.localStorage.setItem('currentUser',JSON.stringify(userData))
       //adding to firestore collection creating the gainsville collection
       db.collection("gainsville")
-        .doc()
-        .set(userData) // passing the user data to firestore
+      .doc()
+      .set(userData) // passing the user data to firestore
         .then(() => {
-          window.localStorage.setItem('currentUser',JSON.stringify(userData))
+          // console.log(typeof state.user)
           vueApp.$router.push("/studentdashboard");
         })
         .then(() => {

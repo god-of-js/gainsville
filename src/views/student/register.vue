@@ -27,7 +27,6 @@
 </template>
 <script>
 import { auth } from "@/plugins/firebase/firebaseinit";
-import { mapState } from "vuex";
 export default {
   name: "register",
   data: () => {
@@ -106,6 +105,7 @@ export default {
   methods: {
     reg(e) {
       e.preventDefault();
+      console.log()
       this.loading = !this.loading;
       auth
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -119,8 +119,9 @@ export default {
           });
            
         })
-        // .catch(e => {
-        //   this.loading = !this.loading;
+        .catch((e) => {
+          this.loading = !this.loading;
+          console.log(e)
         //    const Toast = this.$swal.mixin({
         //     toast: true,
         //     position: 'top-end',
@@ -133,7 +134,7 @@ export default {
         //     type: "error",
         //     title: e
         //   })
-        // });
+        });
     }
   }
 };

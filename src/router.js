@@ -66,7 +66,7 @@ const router = new Router({
       component: homeLayout,
       children: [
         {
-          path: "/home",
+          path: "/",
           component: home
         },
         {
@@ -151,12 +151,12 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isAdmin === false) {
+        if (store.state.user.isAdmin === false ) {
           next('/login');
         }
         else if (store.state.user.isAdmin === true) {
           next();
-        }
+        }else next('/login')
 
       })
     },
@@ -212,13 +212,25 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isStudent === false) next('/login');
-        else if (store.state.user.isStudent === true) next();
+        if (store.state.user.isStudent === false ) {
+          next('/login');
+        } 
+        else if (store.state.user.isStudent === true) {
+          next();
+        }else next('/login')
 
       })
     }
   ]
 });
-
+// router.beforeEach((to, from, next) => {
+//  const currentUser = auth.currentUser;
+//  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+//  if(requiresAuth && !currentUser) {
+//    next('/login')
+//  }else {
+//    next
+//  }
+// })
 
 export default router;
