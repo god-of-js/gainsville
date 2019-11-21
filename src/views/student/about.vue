@@ -1,40 +1,11 @@
 <template>
-  <div>
-    <v-card
-      class="d-flex align-start flex-column mb-6"
-      color="grey lighten-2"
-      flat
-      tile
-      height="200"
-    >
-      <v-card
-        v-for="n in 3"
-        :key="n"
-        :class="n === 1 && 'mb-auto'"
-        class="pa-2"
-        outlined
-        tile
-      >
-        Flex item
-      </v-card>
-    </v-card>
-    <v-card
-      class="d-flex align-end flex-column"
-      color="grey lighten-2"
-      flat
-      tile
-      height="200"
-    >
-      <v-card
-        v-for="n in 3"
-        :key="n"
-        :class="n === 3 && 'mt-auto'"
-        class="pa-2"
-        outlined
-        tile
-      >
-        Flex item
-      </v-card>
-    </v-card>
-  </div>
+ <v-content>
+   <v-card class="mx-auto mt-6 pl-4 pr-4 pt-2 pb-4" width="500">
+     <v-card-title>GAINSVILLE CHILDREN ACADEMY</v-card-title>
+     <v-card-text>This is an unfinished product being hosted for testing purposes and would be rounded up before December 10th 2019.
+       
+       It was built using vue.js, firebase and vuetify.
+     </v-card-text>
+   </v-card>
+ </v-content>
 </template>

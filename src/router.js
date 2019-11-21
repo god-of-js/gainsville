@@ -27,11 +27,11 @@ import complaints from "./views/student/complaints.vue";
 import info from "./views/student/info.vue";
 import publicinfo from "./views/student/publicinfo.vue";
 import activities from "./views/student/activities.vue";
-import about from "./views/student/publicinfo.vue";
-import location from "./views/student/publicinfo.vue";
-import staff from "./views/student/publicinfo.vue";
+import about from "./views/student/about.vue";
+import location from "./views/student/location.vue";
+import staff from "./views/student/staff.vue";
 import store from './store'
-// import { mapState } from 'vuex'
+import { auth } from './plugins/firebase/firebaseinit'
 Vue.use(Router);
 
 const router = new Router({
@@ -151,12 +151,12 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isAdmin === false ) {
+        if (store.state.user.isAdmin === false) {
           next('/login');
         }
         else if (store.state.user.isAdmin === true) {
           next();
-        }else next('/login')
+        } else next('/login')
 
       })
     },
@@ -212,12 +212,9 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isStudent === false ) {
-          next('/login');
-        } 
-        else if (store.state.user.isStudent === true) {
+        if (store.state.user.isStudent === true) {
           next();
-        }else next('/login')
+        } else { next('/login') }
 
       })
     }

@@ -78,6 +78,7 @@ return {
  methods: {
  logOut() {
   auth.signOut().then(() => {
+    localStorage.removeItem('currentUser')
     this.$router.push('/login');
   })
  }

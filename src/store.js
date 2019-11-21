@@ -55,7 +55,9 @@ const store = new Vuex.Store({
     },
     setSchoolBooks(state, val) {
       state.schoolBooks = val;
-
+    },
+    setLocalStorageUser(state, userStore) {
+      state.user = userStore;
     }
   },
   actions: {
@@ -79,13 +81,17 @@ const store = new Vuex.Store({
         isAdmin: false
       };
       
-      window.localStorage.setItem('currentUser',JSON.stringify(userData))
       //adding to firestore collection creating the gainsville collection
+      
       db.collection("gainsville")
       .doc()
       .set(userData) // passing the user data to firestore
-        .then(() => {
-          // console.log(typeof state.user)
+      .then(() => {
+        window.localStorage.setItem('currentUser',JSON.stringify(userData))
+        user = window.localStorage.getItem('currentUser')
+        const userStore = JSON.parse(user);
+        console.log(userStore)
+        commit('setLocalStorageUser', userStore)
           vueApp.$router.push("/studentdashboard");
         })
         .then(() => {

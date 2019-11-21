@@ -32,6 +32,7 @@
       auth.signInWithEmailAndPassword(this.email, this.password)
         .then((currentUser) => {
           const user = currentUser.user;
+          console.log(user)
           const vueApp = this;
           this.$store.dispatch("adminCheck", {
             vueApp,
