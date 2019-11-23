@@ -1,81 +1,87 @@
 <template>
   <div>
-    <v-app-bar app clipped-left dense color="transparent" class="mb-auto">
-      <v-toolbar-title>GAINSVILLE CHILDREN ACADEMY</v-toolbar-title>
-      <!-- <v-spacer></v-spacer> -->
-      <div class="flex-grow-1"></div>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="icon"></v-app-bar-nav-icon>
-      <!-- d-flex justify-space-between  -->
-      <v-col class="options d-flex justify-end">
-        <!-- <v-btn to="/home" text>Home</v-btn> -->
-        <v-btn to="/about" text>About</v-btn>
-        <!-- <v-btn to="/staff" text>Staffs</v-btn>
-        <v-btn to="/location" text>Location</v-btn>
-        <v-btn to="/activities" text>Activities</v-btn>
-        <v-btn to="/publicinfo" text>Info</v-btn> -->
-        <v-btn to="/studentdashboard" active rounded color="green" class="ml-2">Portal</v-btn>
+    <v-app-bar app clipped-left dense color="transparent" class="mb-auto app">
+      <v-toolbar-title>GAINSVILLE</v-toolbar-title>
+      <v-col class="options d-flex justify-end" id="options">
+        <v-btn to="/" text class="links">Home</v-btn>
+        <v-btn to="/about" text class="links">About</v-btn>
+        <v-btn to="/staff" text class="links">Staffs</v-btn>
+        <v-btn to="/location" text class="links">Location</v-btn>
+        <v-btn to="/activities" text class="links">Activities</v-btn>
+        <v-btn to="/publicinfo" text class="links">Info</v-btn>
+        <v-btn to="/studentdashboard" active color="green" class="links">Portal</v-btn>
       </v-col>
+      <v-app-bar-nav-icon class="icon"  @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
-
-    <!-- sidebar based on responsivity -->
-     <v-navigation-drawer v-model="drawer" absolute right temporary app >
-      <v-list nav dense>
-        <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
-          <v-list-item to="/home" >
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item> 
-
-           <v-list-item to="/about">
-            <v-list-item-title>About</v-list-item-title>
-          </v-list-item>
-
-        <!--  <v-list-item to="/staff">
-            <v-list-item-title>Staffs</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item to="/location">
-            <v-list-item-title>Location</v-list-item-title>
-          </v-list-item>
-          
-          <v-list-item to="/activities">
-            <v-list-item-title>Activities</v-list-item-title>
-          </v-list-item>
-          
-          <v-list-item to="/publicinfo">
-            <v-list-item-title>Information</v-list-item-title>
-          </v-list-item> -->
-          
-          <v-list-item to="/studentdashboard">
-            <v-list-item-title>Student Portal</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
+    <v-navigation-drawer  v-model="drawer" absolute temporary >
+      <v-list dense>
+        <v-list-item to="/" >Home</v-list-item>
+        <v-list-item to="/about">About</v-list-item>
+        <v-list-item to="/staff">Staffs</v-list-item>
+        <v-list-item to="/location">Location</v-list-item>
+        <v-list-item to="/activities">Activities</v-list-item>
+        <v-list-item to="/publicinfo">Info</v-list-item>
+        <v-list-item to="/studentdashboard">Portal</v-list-item>
       </v-list>
-    </v-navigation-drawer> 
+    </v-navigation-drawer>
   </div>
 </template>
 
 <style scoped>
+.app{
+  overflow: hidden;
+  position: fixed;
+}
 .icon {
   display: none;
 }
+.vspacer{
+  display: none;
+}
 /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 360px) {
+  .options.responsive {position: relative;}
+  .options.responsive.links {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .flexGrow{
+    display: none;
+  }
+  .vspacer{
+  display: block;
+}
+  .icon{
+    display: flex;
+    justify-self: end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 3px !important;
+  }
+  
+}
 @media only screen and (max-width: 600px) {
   .options {
     display: none;
   }
 }
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .options {
-    display: none;
-  }
-}
+
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
   .options {
     display: none;
+  }
+  .icon{
+    display: flex;
+    justify-self: end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 3px !important;
   }
 }
 
@@ -85,7 +91,24 @@
     display: none !important;
   }
   .icon {
-    display: block;
+   display: flex;
+    justify-self: end;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 3px !important;
+  }
+}
+@media only screen and (max-width: 1024px) {
+   .options {
+    display: none !important;
+  }
+  .icon {
+   display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 3px !important;
   }
 }
 
@@ -94,20 +117,18 @@
   .options {
     display: block;
   }
+  .icon{
+    display: none
+  }
 }
 </style>
 
 <script>
   export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-    }),
-
-    watch: {
-      group () {
-        this.drawer = false
-      },
+    data () {
+      return {
+        drawer: null
+      }
     },
   }
 </script>

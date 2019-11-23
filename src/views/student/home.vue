@@ -30,6 +30,9 @@
   font-size: 25px;
 }
 .firstlayer {
+   overflow-y: hidden;
+  position: fixed;
+  margin: 0;
   background-image: url("../../assets/primary.jpg");
   width: 100%;
   height: 100%;

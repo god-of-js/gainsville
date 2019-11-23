@@ -16,10 +16,10 @@
         <v-text-field :rules="nameRules" label="Fathers name" v-model="fathersName" required></v-text-field>
         <v-text-field :rules="nameRules" label="Phone Number of Father" v-model="dnum" required></v-text-field>
         <v-text-field :rules="passRules" label="password" v-model="password" type="password" required ></v-text-field>
-        <v-flex>
-          <v-btn color="primary" :loading="loading" type="submit">register</v-btn>
-          <v-btn color="success" class="mr-12 ml-6" to="/login">sign in</v-btn>
-        </v-flex>
+        <v-row>
+          <v-btn color="primary" :loading="loading" type="submit" outlined>register</v-btn>
+          <v-btn color="success" class="mr-12 ml-6" to="/login" outlined>sign in</v-btn>
+        </v-row>
       </v-form>
     </v-container>
   </v-card>

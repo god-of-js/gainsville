@@ -150,15 +150,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
-      beforeEnter: ((to, from, next) => {
-        if (store.state.user.isAdmin === false) {
-          next('/login');
-        }
-        else if (store.state.user.isAdmin === true) {
-          next();
-        } else next('/login')
+      // beforeEnter: ((to, from, next) => {
+      //   if (store.state.user.isAdmin === false) {
+      //     next('/login');
+      //   }
+      //   else if (store.state.user.isAdmin === true) {
+      //     next();
+      //   } else next('/login')
 
-      })
+      // })
     },
     {
       path: "/",

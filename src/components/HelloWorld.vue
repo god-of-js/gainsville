@@ -4,6 +4,41 @@
       text-center
       wrap
     >
+
+    <!-- sidebar based on responsivity -->
+     <!-- <v-navigation-drawer v-model="drawer" absolute right temporary app >
+      <v-list nav dense >
+        <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+          <v-list-item to="/home" >
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item> 
+
+           <v-list-item to="/about">
+            <v-list-item-title>About</v-list-item-title>
+          </v-list-item>
+
+         <v-list-item to="/staff">
+            <v-list-item-title>Staffs</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item to="/location">
+            <v-list-item-title>Location</v-list-item-title>
+          </v-list-item>
+          
+          <v-list-item to="/activities">
+            <v-list-item-title>Activities</v-list-item-title>
+          </v-list-item>
+          
+          <v-list-item to="/publicinfo">
+            <v-list-item-title>Information</v-list-item-title>
+          </v-list-item> 
+          
+          <v-list-item to="/studentdashboard">
+            <v-list-item-title>Student Portal</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>  -->
       <v-flex xs12>
         <v-img
           :src="require('../assets/logo.svg')"
