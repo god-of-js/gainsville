@@ -108,3 +108,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .firstLayer{
+    margin: auto !important;
+  }
+</style>

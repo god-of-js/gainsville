@@ -1,28 +1,34 @@
 <template>
   <v-content>
-    <div class="border  mt-6">
-      <div class="ml-6  bord">Surname: <span class="space"> {{ currentUser.lname }}</span></div>
+    
+      <v-row align="center" justify="center">
+        <v-col class="text-center" cols="12">
+          <h1 class="display-1 font-weight-thin mb-4 txtwhite">GAINSVILLE</h1>
+          <h4 class="subheading txtwhite">STUDENT PROFILE</h4>
+        </v-col>
+      </v-row>
+    <v-card class="mx-auto mt-2 pt-4 pb-4" width="500">
+         
+      <div class="ml-6  bord">Surname: <span class="lname"> {{ currentUser.lname }}</span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">First Name: <span class="space"> {{ currentUser.fname }}</span> </div>
+      <div class="ml-6  bord">First Name: <span class="fname"> {{ currentUser.fname }}</span> </div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Last Name: <span class="space">{{ currentUser.mname }} </span></div>
+      <div class="ml-6  bord">Middle Name: <span class="mname">{{ currentUser.mname }} </span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Gender: <span class="space">{{ currentUser.gender }} </span></div>
+      <div class="ml-6  bord">Gender: <span class="gender">{{ currentUser.gender }} </span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Present Class: <span class="space">{{ currentUser.classi }} </span> </div>
+      <div class="ml-6  bord">Present Class: <span class="class">{{ currentUser.classi }} </span> </div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">State:<span class="space">{{ currentUser.state }} </span> </div>
+      <div class="ml-6  bord">State:<span class="state">{{ currentUser.state }} </span> </div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Mother's Name: <span class="space"> {{ currentUser.mothersName }} </span></div>
+      <div class="ml-6  bord">Guardian's Name: <span class="momname"> {{ currentUser.mothersName }} </span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Mother's Number: <span class="space">{{ currentUser.mnum }} </span></div>
+      <div class="ml-6  bord">Guardian's Number: <span class="mnum">{{ currentUser.mnum }} </span></div>
       <v-divider></v-divider>
-      <div class="ml-6  bord">Father's Name:  <span class="space">{{ currentUser.fathersName }} </span></div>
-      <v-divider></v-divider>
-      <div class="ml-6  bord">Father's Number: <span class="space">{{ currentUser.dnum }} </span></div>
-      <v-divider></v-divider>
-      <div class="ml-6 ">Home Address: <span class="space"> {{ currentUser.address }}</span> </div>
-    </div>
+      <div class="ml-6 ">Home Address: <span class="address"> {{ currentUser.address }}</span> </div>
+    
+    </v-card>
+ 
   </v-content>
 </template>
 <script>
@@ -44,9 +50,32 @@ hr{
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.space{
-  margin-left: 5%;
+.lname{
+  margin-left: 12%;
 }
 
-
+.fname{
+  margin-left: 8.9%;
+}
+.mname{
+  margin-left: 5.8%;
+}
+.gender{
+  margin-left: 16.1%;
+}
+.class{
+  margin-left: 6%;
+}
+.state{
+  margin-left: 20%;
+}
+.momname{
+  margin-left: 5%
+}
+.mnum{
+  margin-left: 2.8%
+}
+.address{
+  margin-left: 6%;
+}
 </style>

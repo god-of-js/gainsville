@@ -150,15 +150,15 @@ const router = new Router({
       meta: {
         requiresAuth: true
       },
-      // beforeEnter: ((to, from, next) => {
-      //   if (store.state.user.isAdmin === false) {
-      //     next('/login');
-      //   }
-      //   else if (store.state.user.isAdmin === true) {
-      //     next();
-      //   } else next('/login')
+      beforeEnter: ((to, from, next) => {
+        if (store.state.user.isAdmin === false) {
+          next('/login');
+        }
+        else if (store.state.user.isAdmin === true) {
+          next();
+        } else next('/login')
 
-      // })
+      })
     },
     {
       path: "/",
@@ -220,14 +220,6 @@ const router = new Router({
     }
   ]
 });
-// router.beforeEach((to, from, next) => {
-//  const currentUser = auth.currentUser;
-//  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-//  if(requiresAuth && !currentUser) {
-//    next('/login')
-//  }else {
-//    next
-//  }
-// })
+
 
 export default router;

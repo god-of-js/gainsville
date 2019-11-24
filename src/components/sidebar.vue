@@ -3,10 +3,13 @@
     mobile-break-point="50"
     width="260"
     :mini-variant.sync="mini"
-    v-model="drawer">
+    v-model="drawer"
+    dark>
       <v-list >
         <v-list-item @click.stop="mini = !mini">
-             <v-icon>mdi-dots-vertical</v-icon>
+          <v-list-item-action>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-list-item-action>
           <v-list-item-title>Show/Hide</v-list-item-title>
       </v-list-item>
        <v-list-item to="/studentdashboard">
@@ -43,12 +46,12 @@
         </v-list-item-action>
         <v-list-item-content>Payments</v-list-item-content>
       </v-list-item>
-      <!-- <v-list-item to="/complaints">
+      <v-list-item to="/complaints">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
         <v-list-item-content>Suggestions and Complaints</v-list-item-content>
-      </v-list-item> -->
+      </v-list-item>
       <!-- <v-list-item to="/info">
         <v-list-item-action>
           <v-icon>info</v-icon>

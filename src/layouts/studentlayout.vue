@@ -1,5 +1,5 @@
 <template>
- <v-app>
+ <v-app class="body">
     <navbar/>
     <sidebar/> 
     <router-view/>
@@ -15,3 +15,6 @@
   }
 }
 </script>
+<style scoped>
+  
+</style>
