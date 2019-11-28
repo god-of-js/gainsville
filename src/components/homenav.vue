@@ -113,12 +113,20 @@
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1025px) {
+  .options{
+    display: block;
+  }
+  .icon{
+    display: none !important;
+  }
+}
 @media only screen and (min-width: 1200px) {
   .options {
     display: block;
   }
   .icon{
-    display: none
+    display: none !important;
   }
 }
 </style>

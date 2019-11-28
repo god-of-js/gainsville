@@ -32,41 +32,15 @@
       auth.signInWithEmailAndPassword(this.email, this.password)
         .then((currentUser) => {
           const user = currentUser.user;
-          console.log(user)
           const vueApp = this;
           this.$store.dispatch("adminCheck", {
             vueApp,
             user
           })  
-        })    
-        .then(() => {
-         const Toast = this.$swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            type: 'success',
-            title: 'Signed in successfully'
-          })
-          Toast.fire({
-            type: "success",
-            title: "Successfully logged in"
-          })
-        })
+        })  
         .catch(err => {
           this.loading = !this.loading;
-          const Toast = this.$swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            type: 'error',
-            title: err.message
-          })
-          Toast.fire({
-            type: "error",
-            title: err
-          })
+          alert(err);
          });
     }
   }

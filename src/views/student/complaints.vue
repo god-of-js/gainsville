@@ -6,18 +6,17 @@
           <div class="adminbox d-flex justify-start mt-2 pb-2 pt-2">
             <div class="author">{{message.name}}</div>
             <div class="message">{{message.message}}</div>
-            <div class="time">{{message.time}}</div>
           </div>
         </div>
         <div v-for="message in messages" :key="message.id">
           <div class="messagebox d-flex justify-end mt-2 pb-2 pt-2">
             <div class="author">{{message.name}}</div>
             <div class="message">{{message.message}}</div>
-            <div class="time">{{message.time}}</div>
           </div>
         </div>
       </div>
-      <createmessage />
+       <p v-if="errortext">You have to send an actual message.</p>
+    <createmessage />
     </div>
   </v-content>
 </template>
@@ -50,7 +49,11 @@ export default {
 .messagebox {
   background-color: green;
   color: white;
-  /* width: 60%; */
+  width: 60%;
+  border-radius: 2%;
+  display: flex;
+  justify-content: end;
+
 }
 .adminbox{
   background-color: beige;

@@ -26,7 +26,8 @@
       <div class="ml-6  bord">Guardian's Number: <span class="mnum">{{ currentUser.mnum }} </span></div>
       <v-divider></v-divider>
       <div class="ml-6 ">Home Address: <span class="address"> {{ currentUser.address }}</span> </div>
-    
+      <v-divider></v-divider>
+      <div class="ml-6 ">Home Address: <span class="address"> {{ currentUser.email }}</span> </div>
     </v-card>
  
   </v-content>

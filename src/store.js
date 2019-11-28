@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import { auth, db } from "@/plugins/firebase/firebaseinit";
 Vue.use(Vuex);
 auth.onAuthStateChanged(user => {
-  
+
   //if user exists commit setscurrentUser else  null
   user
     ? (async () => {
@@ -67,31 +67,29 @@ const store = new Vuex.Store({
         fname: vueApp.fname,
         mname: vueApp.mname,
         lname: vueApp.lname,
-        mnum: vueApp.mnum,
-        dnum: vueApp.dnum,
+        gnum: vueApp.gnum,
         address: vueApp.address,
         classi: vueApp.selectedClass,
-        fathersName: vueApp.fathersName,
-        mothersName: vueApp.mothersName,
+        guardiansName: vueApp.guardiansName,
         state: vueApp.selectedState,
         gender: vueApp.selectedGender,
         email: vueApp.email,
         userId: user.uid,
         isStudent: true,
-        isAdmin: false
+        isAdmin: false,
+        deleted: false
       };
-      
       //adding to firestore collection creating the gainsville collection
-      
+
       db.collection("gainsville")
-      .doc()
-      .set(userData) // passing the user data to firestore
-      .then(() => {
-        window.localStorage.setItem('currentUser',JSON.stringify(userData))
-        user = window.localStorage.getItem('currentUser')
-        const userStore = JSON.parse(user);
-        console.log(userStore)
-        commit('setLocalStorageUser', userStore)
+        .doc(userData.userId)
+        .set(userData) // passing the user data to firestore
+        .then(() => {
+          window.localStorage.setItem('currentUser', JSON.stringify(userData))
+          user = window.localStorage.getItem('currentUser')
+          const userStore = JSON.parse(user);
+          console.log(userStore)
+          commit('setLocalStorageUser', userStore)
           vueApp.$router.push("/studentdashboard");
         })
         .then(() => {
@@ -109,19 +107,72 @@ const store = new Vuex.Store({
           });
         });
     },
-    adminCheck({ commit }, { vueApp, user }) {
+    deleteUser({ commit, state }, { student, vueApp, id }) {
+      student.deleted = true;
+      student.isAdmin = false;
+      student.isStudent = false
+      db.collection('gainsville').doc(id).set(student)
+      const Toast = vueApp.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        type: "success",
+        title: "Deleted student from Database"
+      });
+      Toast.fire({
+        type: "success",
+        title: "Student successfully deleted"
+      });
+    },
+    adminCheck({ commit, state }, { vueApp, user }) {
       db.collection("gainsville")
         .where("userId", "==", user.uid)
         .get()
         .then(query => {
           query.forEach(doc => {
-            if (doc.data().isAdmin == true) {
-              commit("setAdmin", doc.data());
-              vueApp.$router.push("/admin");
-            } else if (doc.data().isSuperAdmin == true) {
-              commit("setSuperAdmin", doc.data());
-              vueApp.$router.push("/admin");
-            } else vueApp.$router.push("/studentdashboard");
+            window.localStorage.setItem('currentUser', JSON.stringify(doc.data()))
+            const user = window.localStorage.getItem('currentUser');
+            const userStore = JSON.parse(user);
+            commit('setLocalStorageUser', userStore)
+            if (state.user.deleted == true) {
+              vueApp.$router.push('/login')
+              alert('This student has been deleted from the school database contact the school for further info')
+            } else {
+              if (state.user.isAdmin === true) {
+                commit("setAdmin", doc.data());
+                vueApp.$router.push("/admin");
+                const Toast = vueApp.$swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  type: 'success',
+                  title: 'Signed in successfully'
+                })
+                Toast.fire({
+                  type: "success",
+                  title: "Successfully logged in"
+                })
+
+              } else if (state.user.isStudent === true) {
+                commit("setCurrentUser", doc.data());
+                vueApp.$router.push("/studentdashboard");
+                const Toast = vueApp.$swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  type: 'success',
+                  title: 'Signed in successfully'
+                })
+                Toast.fire({
+                  type: "success",
+                  title: "Successfully logged in"
+                })
+              } else vueApp.$router.push("/login");
+
+            }
           });
         });
     },
@@ -131,7 +182,7 @@ const store = new Vuex.Store({
         .get()
         .then(query => {
           query.forEach(doc => {
-            window.localStorage.setItem('currentUser',JSON.stringify(doc.data()))
+            window.localStorage.setItem('currentUser', JSON.stringify(doc.data()))
             commit("setCurrentUser", doc.data());
           });
         });
@@ -178,7 +229,7 @@ const store = new Vuex.Store({
     },
     getBooks({ state }, { obj, year, vueApp, sum }) {
       const inputs = Number(state.noOfBooksInputs)
-      const data = { obj, year, sum , inputs};
+      const data = { obj, year, sum, inputs };
       db.collection("schoolBooks")
         .doc()
         .set(data) // passing the user data to firestore
@@ -194,7 +245,7 @@ const store = new Vuex.Store({
       state.no_of_fees_inputs = null
     },
     getFees({ state }, { obj, year, vueApp, sum }) {
-     const inputs = Number(state.noOfFeesInputs)
+      const inputs = Number(state.noOfFeesInputs)
       const data = { obj, year, sum, inputs };
       db.collection("schoolfees")
         .doc()

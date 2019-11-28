@@ -151,10 +151,10 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isAdmin === false) {
+        if (store.state.user.isAdmin === false || store.state.user.deleted === true) {
           next('/login');
         }
-        else if (store.state.user.isAdmin === true) {
+        else if (store.state.user.isAdmin === true || store.state.user.deleted === false) {
           next();
         } else next('/login')
 
@@ -212,7 +212,7 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: ((to, from, next) => {
-        if (store.state.user.isStudent === true) {
+        if (store.state.user.isStudent === true ||   store.state.user.deleted === false) {
           next();
         } else { next('/login') }
 
