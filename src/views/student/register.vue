@@ -107,7 +107,6 @@ export default {
   methods: {
     reg(e) {
       e.preventDefault();
-      console.log();
       this.loading = !this.loading;
       auth
         .createUserWithEmailAndPassword(this.email, this.password)

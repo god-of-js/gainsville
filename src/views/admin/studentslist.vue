@@ -16,23 +16,12 @@
               <span class="mr-4">Address:</span>
               <span>{{ student.address }}</span>
             </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
-            </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
           <div class="d-flex justify-space-between">
             <span>
               <span class="mr-4">Class:</span>
               <span>{{ student.classi }}</span>
-            </span>
-            <span>
-              <v-btn icon width="50">
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
-              <span></span>
             </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
@@ -41,22 +30,12 @@
               <span class="mr-4">State:</span>
               <span>{{ student.state }}</span>
             </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
-            </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
           <div class="d-flex justify-space-between">
             <span>
               <span class="mr-4">Gender:</span>
               <span>{{ student.gender }}</span>
-            </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
             </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
@@ -65,22 +44,12 @@
               <span class="mr-4">Email:</span>
               <span>{{ student.email }}</span>
             </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
-            </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
           <div class="d-flex justify-space-between">
             <span>
               <span class="mr-4">Guardian's Name:</span>
               <span>{{ student.guardiansName }}</span>
-            </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
             </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
@@ -89,11 +58,6 @@
               <span class="mr-4">Guardian's Number:</span>
               <span>{{ student.gnum }}</span>
             </span>
-            <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
-            </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
           <div class="d-flex justify-space-between">
@@ -101,10 +65,12 @@
               <span class="mr-4">Student:</span>
               <span>{{ student.isStudent }}</span>
             </span>
+          </div>
+          <v-divider class="mt-2 mb-2"></v-divider>
+          <div class="d-flex justify-space-between">
             <span>
-              <v-btn icon>
-                <v-icon>mdi-pencil-outline</v-icon>
-              </v-btn>
+              <span class="mr-4">Deleted:</span>
+              <span>{{ student.deleted }}</span>
             </span>
           </div>
           <v-divider class="mt-2 mb-2"></v-divider>
@@ -114,7 +80,7 @@
               <span>{{ student.isAdmin }}</span>
             </span>
             <span>
-              <v-btn icon>
+              <v-btn icon @click="admin(student.userId)">
                 <v-icon>mdi-pencil-outline</v-icon>
               </v-btn>
             </span>
@@ -136,18 +102,33 @@ export default {
   },
   methods: {
     deleteUser(id) {
-        db.collection('gainsville')
-        .where('userId', '==', id)
+      db.collection("gainsville")
+        .where("userId", "==", id)
         .get()
         .then(query => {
-            query.forEach(element => {
-                const student = element.data();
-                let vueApp = this;
-                this.$store.dispatch('deleteUser', {student, vueApp, id})
-            });
-        
-        }).catch((e) => {
-            alert(e)
+          query.forEach(element => {
+            const student = element.data();
+            let vueApp = this;
+            this.$store.dispatch("deleteUser", { student, vueApp, id });
+          });
+        })
+        .catch(e => {
+          alert(e);
+        });
+    },
+    admin(id) {
+      db.collection("gainsville")
+        .where("userId", "==", id)
+        .get()
+        .then(query => {
+          query.forEach(user => {
+              let userData = user.data()
+              const vueApp = this;
+              this.$store.dispatch('makeAdmin',{
+                  userData,
+                  vueApp
+              } )
+          });
         });
     }
   }

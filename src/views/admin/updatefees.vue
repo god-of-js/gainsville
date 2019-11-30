@@ -73,10 +73,6 @@
           <v-spacer></v-spacer>
           <v-text-field v-model="fee12" label="Amount of fees (In numbers)" type="number"></v-text-field>
         </v-row>
-        <!-- <v-row>
-          <v-text-field v-model="words" label="Total amount of fees (In Words)"></v-text-field>
-          <v-text-field ><v-text-field>
-        </v-row> -->
         <v-btn color="primary" class="d-flex justify-center" type="submit">Submit fields</v-btn>
       </v-form>
     </v-container>
@@ -101,30 +97,30 @@ export default {
         "Grade 5"
       ],
       valid: false,
-      field1: "null",
-      fee1: '5',
-      field2: "null",
-      fee2: '6',
-      field3: "null",
-      fee3: '7',
-      field4: " null",
-      fee4: '3',
-      field5: "null",
-      fee5: '3',
-      field6: "null",
-      fee6: '7',
-      field7: "null",
-      fee7: '2',
-      field8: null,
-      fee8: null,
-      field9: null,
-      fee9: null,
-      field10: null,
-      fee10: null,
-      field11: null,
-      fee11: null,
-      field12: null,
-      fee12: null,
+      field1: 0,
+      fee1: 0,
+      field2: "",
+      fee2: 0,
+      field3: "",
+      fee3: 0,
+      field4: "",
+      fee4: 0,
+      field5: "",
+      fee5: 0,
+      field6: "",
+      fee6: 0,
+      field7: "",
+      fee7: 0,
+      field8: '',
+      fee8: 0,
+      field9: '',
+      fee9: 0,
+      field10: '',
+      fee10: 0,
+      field11: '',
+      fee11: 0,
+      field12: '',
+      fee12: 0,
       total: 0
     };
   },

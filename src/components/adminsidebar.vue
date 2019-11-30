@@ -9,10 +9,11 @@
   >
     <v-list>
       <v-list-item @click.stop="mini = !mini">
-        
-             <v-icon>mdi-dots-vertical</v-icon>
-          
-          <v-list-item-title>Show/Hide</v-list-item-title>
+        <v-list-item-action>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-list-item-action>
+
+        <v-list-item-title>Show/Hide</v-list-item-title>
       </v-list-item>
       <v-list-item to="/admin">
         <v-list-item-action class="d-flex">
@@ -30,7 +31,7 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-     
+
       <v-list-item to="/updatebooks">
         <v-list-item-action>
           <v-icon>mdi-book</v-icon>
@@ -48,7 +49,7 @@
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
         <v-list-item-content>Parent Chat</v-list-item-content>
-      </v-list-item> -->
+      </v-list-item>-->
       <v-list-item to="/manageaccounts">
         <v-list-item-action>
           <v-icon>mdi-account-group</v-icon>

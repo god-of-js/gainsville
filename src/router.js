@@ -9,7 +9,9 @@ import studentslist from "./views/admin/studentslist.vue";
 import updatefees from "./views/admin/updatefees.vue";
 import parentchat from "./views/admin/parentchat.vue";
 import addadmin from "./views/admin/addAdmin.vue";
-import manageaccounts from "./views/admin/manageaccounts.vue";
+import manageadmin from "./views/admin/manageadmin.vue";
+import studentresultpost from "./views/admin/studentresultpost.vue";
+import inputresults from "./views/admin/inputresults.vue";
 import post from "./views/admin/adminposts.vue";
 import recievecomplaints from "./views/admin/recievecomplaints.vue";
 import login from "./views/student/login.vue";
@@ -31,7 +33,7 @@ import about from "./views/student/about.vue";
 import location from "./views/student/location.vue";
 import staff from "./views/student/staff.vue";
 import store from './store'
-import { auth } from './plugins/firebase/firebaseinit'
+
 Vue.use(Router);
 
 const router = new Router({
@@ -107,6 +109,15 @@ const router = new Router({
           component: confirmfees
         },
         {
+          path: "/inputresults",
+          component: inputresults
+        },
+        
+        {
+          path: "/studentresultpost",
+          component: studentresultpost
+        },
+        {
           path: "/parentchat",
           component: parentchat
         },
@@ -143,8 +154,8 @@ const router = new Router({
           component: feesrecords
         },
         {
-          path: "/manageaccounts",
-          component: manageaccounts
+          path: "/manageadmin",
+          component: manageadmin
         }
       ],
       meta: {

@@ -9,15 +9,17 @@ auth.onAuthStateChanged(user => {
     ? (async () => {
       store.dispatch("getUserProfile", user.uid);
       store.dispatch("getMessages", user.uid);
+      store.dispatch('selectClassResults')
     })()
     : null;
 });
-let user = window.localStorage.getItem('currentUser')
+let user = window.localStorage.getItem('currentUser') // getting item from local storage
 const store = new Vuex.Store({
   state: {
     user: user ? JSON.parse(user) : [], //local storage current user 
     currentUser: null,
     studentsCollection: [],
+    adminCollection: [],
     messages: [],
     adminMessages: [],
     field: [],
@@ -25,7 +27,10 @@ const store = new Vuex.Store({
     noOfResultsInputs: null,
     noOfBooksInputs: null,
     schoolFees: null,
-    schoolBooks: null
+    schoolBooks: null,
+    selectedClass: [],
+    resultRecieverId: null,
+    noOfResultFields: null
   },
   mutations: {
     setCurrentUser: (state, val) => {
@@ -33,6 +38,9 @@ const store = new Vuex.Store({
     },
     setStudentsCollection(state, val) {
       state.studentsCollection = val;
+    },
+    setAdminCollection(state, val) {
+      state.adminCollection = val;
     },
     setmessage(state, messages) {
       state.messages = messages
@@ -43,8 +51,9 @@ const store = new Vuex.Store({
     setNoOfFees(state, { numba }) {
       state.noOfFeesInputs = numba
     },
-    setNoOfResults(state, { numba }) {
-      state.noOfResultsInputs = numba
+    setClassResults(state, { studentCollection, fields }) {
+      state.selectedClass = studentCollection;
+      state.noOfResultFields = fields
     },
     setNoOfBooks(state, { numba }) {
       state.noOfBooksInputs = numba
@@ -58,9 +67,13 @@ const store = new Vuex.Store({
     },
     setLocalStorageUser(state, userStore) {
       state.user = userStore;
+    },
+    setStudentIdForResult(state, id) {
+      state.resultRecieverId = id
     }
   },
   actions: {
+    //create user
     createUserProfile({ commit, state }, { vueApp, user }) {
       //the students data
       const userData = {
@@ -107,24 +120,47 @@ const store = new Vuex.Store({
           });
         });
     },
+    //delete user from admin
     deleteUser({ commit, state }, { student, vueApp, id }) {
-      student.deleted = true;
-      student.isAdmin = false;
-      student.isStudent = false
-      db.collection('gainsville').doc(id).set(student)
-      const Toast = vueApp.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        type: "success",
-        title: "Deleted student from Database"
-      });
-      Toast.fire({
-        type: "success",
-        title: "Student successfully deleted"
-      });
+      if (student.deleted === false) {
+        student.deleted = true;
+        student.isAdmin = false;
+        student.isStudent = false
+        db.collection('gainsville').doc(id).set(student)
+        const Toast = vueApp.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "success",
+          title: "Deleted student from Database"
+        });
+        Toast.fire({
+          type: "success",
+          title: "Student successfully deleted"
+        });
+      } else if (student.deleted === true) {
+        student.deleted = false;
+        student.isAdmin = false;
+        student.isStudent = true
+        db.collection('gainsville').doc(id).set(student)
+        const Toast = vueApp.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          type: "success",
+          title: "Deleted student from Database"
+        });
+        Toast.fire({
+          type: "success",
+          title: "Student successfully restored"
+        });
+
+      }
+
     },
+    //login to ckeck if the person is an admin or user or has been deleted
     adminCheck({ commit, state }, { vueApp, user }) {
       db.collection("gainsville")
         .where("userId", "==", user.uid)
@@ -176,6 +212,7 @@ const store = new Vuex.Store({
           });
         });
     },
+    //to get user profile from database 
     getUserProfile({ commit }, uid) {
       db.collection("gainsville")
         .where("userId", "==", uid) //checking if the userid is equal to the user id in firestore
@@ -187,13 +224,72 @@ const store = new Vuex.Store({
           });
         });
     },
+    // to make an admin from admin
+    makeAdmin({ commit }, { userData, vueApp }) {
+      if (userData.isAdmin === false) {
+        userData.isStudent = false;
+        userData.isAdmin = true
+        db.collection('gainsville')
+          .doc(userData.userId)
+          .set(userData).then(() => {
+            const Toast = vueApp.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              type: "success",
+              title: "Deleted student from Database"
+            });
+            Toast.fire({
+              type: "success",
+              title: "Student successfully turned Admin"
+            });
+          })
+      } else {
+        userData.isStudent = true;
+        userData.isAdmin = false;
+        db.collection('gainsville')
+          .doc(userData.userId)
+          .set(userData).then(() => {
+            const Toast = vueApp.$swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 3000,
+              type: "success",
+              title: "Deleted student from Database"
+            });
+            Toast.fire({
+              type: "success",
+              title: "Admin successfully turned student"
+            });
+          })
+
+      }
+    },
+    // to get the list of all students in the database
     getStudentCollection({ commit }) {
       const studentArr = [];
-      db.collection("gainsville").get()
+      db.collection("gainsville")
+        .where('isAdmin', '==', false)
+        .get()
         .then((snapshot) => {
           snapshot.forEach(doc => {
             studentArr.push(doc.data())
             commit("setStudentsCollection", studentArr)
+          })
+        })
+    },
+    //getting admin collection where admin equals true
+    getAdminCollection({commit, state}) {
+      const admintArr = [];
+      db.collection("gainsville")
+        .where('isAdmin', '==', true)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach(doc => {
+            adminArr.push(doc.data())
+            commit("setAdminCollection", adminArr)
           })
         })
     },
@@ -218,15 +314,15 @@ const store = new Vuex.Store({
       })
       commit('setAdminMessage', messages);
     },
+    // to get number of fees to input
     getNoOfFees({ commit }, { numba, classiSelected }) {
       commit('setNoOfFees', { numba, classiSelected });
     },
-    getNoOfResults({ commit }, { numba, classiSelected }) {
-      commit('setNoOfResults', { numba, classiSelected });
-    },
+    // to get number of books 
     getNoOfBooks({ commit }, { numba, classiSelected }) {
       commit('setNoOfBooks', { numba, classiSelected });
     },
+
     getBooks({ state }, { obj, year, vueApp, sum }) {
       const inputs = Number(state.noOfBooksInputs)
       const data = { obj, year, sum, inputs };
@@ -236,13 +332,12 @@ const store = new Vuex.Store({
       vueApp.$router.push('/admin')
       state.noOfBooksInputs = null
     },
-    getResults({ state }, { obj, year, vueApp, sum }) {
-      const data = { obj, year, sum };
-      db.collection("schoolresults")
-        .doc()
-        .set(data) // passing the user data to firestore
-      vueApp.$router.push('/admin')
-      state.no_of_fees_inputs = null
+    //to select the class to upload their school fees
+    selectClassResults({ commit }, { vueApp, student, fields }) {
+      const studentCollection = [];
+      studentCollection.push(student)
+      commit('setClassResults', { studentCollection, fields })
+      vueApp.$router.push('/inputresults')
     },
     getFees({ state }, { obj, year, vueApp, sum }) {
       const inputs = Number(state.noOfFeesInputs)
@@ -272,7 +367,12 @@ const store = new Vuex.Store({
             commit("setSchoolBooks", doc.data());
           });
         });
-    }
+    },
+    // uploadResults({commit, state}, {obj, data, vueApp}) {
+    //   db.collection('gainsville')
+    //   .doc(store.resultRecieverId)
+    //   .set()
+    // }
 
   }
 });
