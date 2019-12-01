@@ -245,7 +245,7 @@ const store = new Vuex.Store({
               title: "Student successfully turned Admin"
             });
           })
-      } else {
+      } else if(userData.isAdmin === true) {
         userData.isStudent = true;
         userData.isAdmin = false;
         db.collection('gainsville')
@@ -282,7 +282,7 @@ const store = new Vuex.Store({
     },
     //getting admin collection where admin equals true
     getAdminCollection({commit, state}) {
-      const admintArr = [];
+      const adminArr = [];
       db.collection("gainsville")
         .where('isAdmin', '==', true)
         .get()
@@ -367,12 +367,7 @@ const store = new Vuex.Store({
             commit("setSchoolBooks", doc.data());
           });
         });
-    },
-    // uploadResults({commit, state}, {obj, data, vueApp}) {
-    //   db.collection('gainsville')
-    //   .doc(store.resultRecieverId)
-    //   .set()
-    // }
+    }
 
   }
 });
