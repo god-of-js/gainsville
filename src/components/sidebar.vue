@@ -2,16 +2,9 @@
   <v-navigation-drawer app clipped 
     mobile-break-point="50"
     width="260"
-    :mini-variant.sync="mini"
     v-model="drawer"
-    dark>
+    class="drawer">
       <v-list >
-        <v-list-item @click.stop="mini = !mini">
-          <v-list-item-action>
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Show/Hide</v-list-item-title>
-      </v-list-item>
        <v-list-item to="/studentdashboard">
           <v-list-item-action>
             <v-icon>mdi-view-dashboard</v-icon>
@@ -46,15 +39,15 @@
         </v-list-item-action>
         <v-list-item-content>Payments</v-list-item-content>
       </v-list-item>
-      <v-list-item to="/complaints">
+      <!-- <v-list-item to="/complaints">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
         </v-list-item-action>
         <v-list-item-content>Suggestions and Complaints</v-list-item-content>
       </v-list-item>
-      <!-- <v-list-item to="/info">
+      <v-list-item to="/info">
         <v-list-item-action>
-          <v-icon>info</v-icon>
+          <v-icon>mdi-information-variant</v-icon>
         </v-list-item-action>
         <v-list-item-content>Informations</v-list-item-content>
       </v-list-item> -->
@@ -89,3 +82,13 @@ return {
   
 };
 </script> 
+<style scoped>
+  .drawer{
+      display: block;
+  }
+  @media screen and (max-width: 600px){
+    .drawer{
+      display: none
+  }
+  }
+</style>

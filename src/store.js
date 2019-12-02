@@ -101,7 +101,6 @@ const store = new Vuex.Store({
           window.localStorage.setItem('currentUser', JSON.stringify(userData))
           user = window.localStorage.getItem('currentUser')
           const userStore = JSON.parse(user);
-          console.log(userStore)
           commit('setLocalStorageUser', userStore)
           vueApp.$router.push("/studentdashboard");
         })

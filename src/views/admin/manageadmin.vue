@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     deleteUser(id) {
-      console.log("id", id);
       db.collection("gainsville")
         .where("userId", "==", id)
         .get()

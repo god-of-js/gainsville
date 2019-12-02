@@ -50,18 +50,12 @@
         </v-list-item-action>
         <v-list-item-content>Parent Chat</v-list-item-content>
       </v-list-item>-->
-      <v-list-item to="/manageaccounts">
-        <v-list-item-action>
-          <v-icon>mdi-account-group</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>Manage Accounts</v-list-item-content>
-      </v-list-item>
-      <v-list-item to="/adminpost">
+      <!-- <v-list-item to="/adminpost">
         <v-list-item-action>
           <v-icon>mdi-post</v-icon>
         </v-list-item-action>
         <v-list-item-content>Post Information</v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
       <v-list-item @click="logOut">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
