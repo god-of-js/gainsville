@@ -7,7 +7,7 @@
           <h4 class="subheading txtwhite">STUDENT PROFILE</h4>
         </v-col>
       </v-row>
-    <v-card class="mx-auto mt-2 pt-4 pb-4" width="500">
+    <v-card class="mx-auto mt-2 pt-4 pb-4 mb-6" width="500">
          
       <div class="ml-6  bord">Surname: <span class="lname"> {{ currentUser.lname }}</span></div>
       <v-divider></v-divider>
@@ -29,7 +29,7 @@
       <v-divider></v-divider>
       <div class="ml-6 ">Home Address: <span class="address"> {{ currentUser.email }}</span> </div>
     </v-card>
- 
+
   </v-content>
 </template>
 <script>
