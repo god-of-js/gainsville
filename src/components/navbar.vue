@@ -9,8 +9,7 @@
       </v-container>
       <v-app-bar-nav-icon class="icon" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
-
-    <v-navigation-drawer v-model="drawer" absolute>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list dense>
         <v-list-item to="/studentdashboard">
           <v-list-item-action>

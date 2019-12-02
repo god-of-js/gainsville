@@ -1,6 +1,6 @@
 <template>
-  <v-content>
-    <v-card max-width="600" class="mx-auto background">
+  <v-content class="content">
+    <v-card max-width="600" class="background mb-12">
       <v-container class="mt-12 pl-12 pr-12 pt-6 pb-12">
         <v-form ref="form" action="submit" @submit="reg" v-model="valid">
           <v-text-field :rules="nameRules" label="First Name" v-model="fname" required></v-text-field>
@@ -11,8 +11,8 @@
           <v-autocomplete :items="state" label="State" v-model="selectedState" required></v-autocomplete>
           <v-autocomplete :items="gender" label="Gender" v-model="selectedGender" required></v-autocomplete>
           <v-autocomplete :items="classi" label="Class" v-model="selectedClass" required></v-autocomplete>
-          <v-text-field :rules="nameRules" label="Mothers name" v-model="guardiansName" required></v-text-field>
-          <v-text-field :rules="nameRules" label="Phone Number of mother" v-model="gnum" required></v-text-field>
+          <v-text-field :rules="nameRules" label="Guardian name" v-model="guardiansName" required></v-text-field>
+          <v-text-field :rules="nameRules" label="Phone Number of Guardian" v-model="gnum" required></v-text-field>
           <v-text-field
             :rules="passRules"
             label="password"
@@ -20,8 +20,8 @@
             type="password"
             required
           ></v-text-field>
-          <v-row>
-            <v-btn color="primary" :loading="loading" type="submit" outlined>register</v-btn>
+          <v-row class="butn">
+            <v-btn color="primary" :loading="loading" type="submit" >register</v-btn>
             <v-btn color="success" class="mr-12 ml-6" to="/login" outlined>sign in</v-btn>
           </v-row>
         </v-form>
@@ -127,3 +127,37 @@ export default {
   }
 };
 </script>
+<style scoped>
+  .background{
+    margin: auto;
+  }
+  .content{
+    overflow: auto;
+  }
+   @media screen and (max-width: 370px) {
+    .background{
+      margin-left:  0% !important;
+      margin-right: 0% !important;
+      margin-bottom: 9% !important;
+    }
+    .butn{
+      display: flex;
+      flex-direction: row
+    }
+  }
+   @media screen and (max-width: 414px) {
+    .background{
+      margin-left:  0% !important;
+      margin-right: 0% !important;
+      margin-top: 0% !important;
+    }
+
+  }
+  @media screen and (max-width: 680px) {
+    .background{
+      margin-left:  20%;
+      margin-right: 20%;
+    }
+
+  }
+</style>

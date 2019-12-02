@@ -6,7 +6,6 @@
       mobile-break-point="600"
       width="260"
       class="drawer"
-      temporary
       v-model="drawer"
     >
       <v-list>
@@ -88,9 +87,9 @@ export default {
 };
 </script> 
 <style >
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .drawer {
     display: none;
   }
-}
+} */
 </style>
