@@ -39,7 +39,7 @@ export default {
         .get()
         .then(query => {
           query.forEach(element => {
-          const vueApp = this;
+            const vueApp = this;
             const student = element.data();
             const fields = this.noOfFields
             this.$store.dispatch("selectClassResults", {

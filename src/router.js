@@ -26,6 +26,7 @@ import hello from "@/components/HelloWorld.vue"
 import studentLayout from "@/layouts/studentlayout.vue"
 import payment from "./views/student/schoolfees.vue";
 import complaints from "./views/student/complaints.vue";
+import updateuserprofile from "./views/student/updateprofile.vue";
 import info from "./views/student/info.vue";
 import publicinfo from "./views/student/publicinfo.vue";
 import activities from "./views/student/activities.vue";
@@ -182,6 +183,13 @@ const router = new Router({
             requiresAuth: true
           },
           name: 'Student Dashboard'
+        },
+        {
+          path: "/update-profile",
+          component: updateuserprofile,
+          meta: {
+            requiresAuth: true
+          }
         },
         {
           path: "/listofbooks",

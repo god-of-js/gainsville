@@ -74,20 +74,19 @@ const store = new Vuex.Store({
   },
   actions: {
     //create user
-    createUserProfile({ commit, state }, { vueApp, user }) {
+    createUserProfile({ commit }, { vueApp, user }) {
       //the students data
       const userData = {
         fname: vueApp.fname,
         mname: vueApp.mname,
         lname: vueApp.lname,
-        gnum: vueApp.gnum,
-        address: vueApp.address,
-        classi: vueApp.selectedClass,
-        guardiansName: vueApp.guardiansName,
-        state: vueApp.selectedState,
-        gender: vueApp.selectedGender,
         email: vueApp.email,
         userId: user.uid,
+        state: null,
+        classi: null,
+        gender: null,
+        gnum: null,
+        guardiansName: null,
         isStudent: true,
         isAdmin: false,
         deleted: false
@@ -119,8 +118,36 @@ const store = new Vuex.Store({
           });
         });
     },
+    // user info update
+    updateInfo({ state }, { userData, userDb, vueApp }) {
+
+      userDb.state = userData.state;
+      userDb.classi = userData.classi;
+      userDb.gender = userData.gender;
+      userDb.gnum = userData.gnum;
+      userDb.guardiansName = userData.guardiansName
+
+      db.collection("gainsville")
+        .doc(state.currentUser.userId)
+        .set(userDb)
+        .then(() => {
+          vueApp.$router.push("/studentdashboard");
+          const Toast = vueApp.$swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            type: "success",
+            title: "Signed in successfully"
+          });
+          Toast.fire({
+            type: "success",
+            title: "Successfully logged in"
+          });
+        })
+    },
     //delete user from admin
-    deleteUser({ commit, state }, { student, vueApp, id }) {
+    deleteUser({ commit }, { student, vueApp, id }) {
       if (student.deleted === false) {
         student.deleted = true;
         student.isAdmin = false;
@@ -244,7 +271,7 @@ const store = new Vuex.Store({
               title: "Student successfully turned Admin"
             });
           })
-      } else if(userData.isAdmin === true) {
+      } else if (userData.isAdmin === true) {
         userData.isStudent = true;
         userData.isAdmin = false;
         db.collection('gainsville')
@@ -280,7 +307,7 @@ const store = new Vuex.Store({
         })
     },
     //getting admin collection where admin equals true
-    getAdminCollection({commit, state}) {
+    getAdminCollection({ commit, state }) {
       const adminArr = [];
       db.collection("gainsville")
         .where('isAdmin', '==', true)
@@ -333,6 +360,7 @@ const store = new Vuex.Store({
     },
     //to select the class to upload their school fees
     selectClassResults({ commit }, { vueApp, student, fields }) {
+      console.log(vueApp)
       const studentCollection = [];
       studentCollection.push(student)
       commit('setClassResults', { studentCollection, fields })

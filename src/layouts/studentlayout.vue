@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <navbar />
-    <sidebar />
+    <sidebar class="side"/>
     <router-view />
   </v-app>
 </template>
@@ -15,3 +15,13 @@ export default {
   }
 };
 </script>
+<style >
+  .side{
+    display: block;
+  }
+  @media screen and (max-width: 600px) {
+    .side{
+      display: none
+    }
+  }
+</style>

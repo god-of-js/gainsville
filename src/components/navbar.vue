@@ -45,6 +45,12 @@
           </v-list-item-action>
           <v-list-item-content>Payments</v-list-item-content>
         </v-list-item>
+        <v-list-item to="/update-profile">
+          <v-list-item-action>
+            <v-icon>mdi-update</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>Update Info</v-list-item-content>
+        </v-list-item>
         <!-- <v-list-item to="/complaints">
         <v-list-item-action>
           <v-icon>mdi-chat</v-icon>
@@ -68,6 +74,7 @@
   </div>
 </template>
 <script>
+import { auth } from '../plugins/firebase/firebaseinit.js'
 import { mapState } from "vuex";
 export default {
   data: () => {
@@ -77,6 +84,14 @@ export default {
   },
   computed: {
     ...mapState(["currentUser"])
+  },
+  methods: {
+    logOut() {
+      auth.signOut().then(() => {
+        localStorage.removeItem("currentUser");
+        this.$router.push("/login");
+      });
+    }
   }
 };
 </script>

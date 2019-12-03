@@ -6,13 +6,7 @@
           <v-text-field :rules="nameRules" label="First Name" v-model="fname" required></v-text-field>
           <v-text-field :rules="nameRules" label="Middle Name" v-model="mname" required></v-text-field>
           <v-text-field :rules="nameRules" label="Last Name" v-model="lname" required></v-text-field>
-          <v-text-field label="Address" v-model="address" required></v-text-field>
           <v-text-field :rules="nameRules" label="Email" v-model="email" required></v-text-field>
-          <v-autocomplete :items="state" label="State" v-model="selectedState" required></v-autocomplete>
-          <v-autocomplete :items="gender" label="Gender" v-model="selectedGender" required></v-autocomplete>
-          <v-autocomplete :items="classi" label="Class" v-model="selectedClass" required></v-autocomplete>
-          <v-text-field :rules="nameRules" label="Guardian name" v-model="guardiansName" required></v-text-field>
-          <v-text-field :rules="nameRules" label="Phone Number of Guardian" v-model="gnum" required></v-text-field>
           <v-text-field
             :rules="passRules"
             label="password"
@@ -42,65 +36,9 @@ export default {
       mname: "",
       lname: "",
       gnum: "",
-      address: "",
       loading: false,
       email: "",
-      selectedState: "",
-      selectedGender: "",
-      guardiansName: "",
       password: "",
-      selectedClass: "",
-      state: [
-        "Abia",
-        "Adamawa",
-        "Akwa Ibom",
-        "Anambra",
-        "Bauchi",
-        "Bayelsa",
-        "Benue",
-        "Borno",
-        "Cross River",
-        "Delta",
-        "Ebonyi",
-        "Edo",
-        "Ekiti",
-        "Enugu",
-        "Gombe",
-        "Imo",
-        "Jigawa",
-        "Kaduna",
-        "Kano",
-        "Katsina",
-        "Kebbi",
-        "Kogi",
-        "Kwara",
-        "Lagos",
-        "Nasarawa",
-        "Niger",
-        "Ogun",
-        "Ondo",
-        "Osun",
-        "Oyo",
-        "Plateau",
-        "Rivers",
-        "Sokoto",
-        "Taraba",
-        "Yobe",
-        "Zamfara"
-      ],
-      gender: ["male", "female"],
-      classi: [
-        "Play Group",
-        "Reception 1",
-        "Reception 2",
-        "Nursery 1",
-        "Nursery 2",
-        "Grade 1",
-        "Grade 2",
-        "Grade 3",
-        "Grade 4",
-        "Grade 5"
-      ]
     };
   },
 

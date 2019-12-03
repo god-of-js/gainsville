@@ -25,12 +25,12 @@ export default {
       value: 0
     };
   },
-  mounted() {
-    this.interval = setFeeStatus(() => {
-      if (this.$store.state.paidFee === true) {
-      }
-    });
-  },
+  // mounted() {
+  //   this.interval = setFeeStatus(() => {
+  //     if (this.$store.state.paidFee === true) {
+  //     }
+  //   });
+  // },
   computed: {
     ...mapState(["currentUser"])
   },
