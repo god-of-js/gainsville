@@ -6,7 +6,6 @@
       mobile-break-point="600"
       width="260"
       class="drawer"
-      v-model="drawer"
     >
       <v-list>
         <v-list-item to="/studentdashboard">
@@ -78,8 +77,6 @@ export default {
   name: "Sidebar",
   data() {
     return {
-      mini: true,
-      drawer: true
     };
   },
   methods: {

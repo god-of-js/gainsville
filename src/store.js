@@ -8,8 +8,6 @@ auth.onAuthStateChanged(user => {
   user
     ? (async () => {
       store.dispatch("getUserProfile", user.uid);
-      store.dispatch("getMessages", user.uid);
-      store.dispatch('selectClassResults')
     })()
     : null;
 });
@@ -360,7 +358,6 @@ const store = new Vuex.Store({
     },
     //to select the class to upload their school fees
     selectClassResults({ commit }, { vueApp, student, fields }) {
-      console.log(vueApp)
       const studentCollection = [];
       studentCollection.push(student)
       commit('setClassResults', { studentCollection, fields })

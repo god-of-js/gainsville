@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <div class="firstlayer">
-      <v-row align="center" justify="center">
+      <v-row align="center" justify="center" >
         <v-col class="text-center" cols="12">
           <h1 class="display-1 font-weight-thin mb-4 txtwhite">Gainsville Children Academy</h1>
           <h4 class="subheading txtwhite">Register your child today!</h4>
@@ -40,5 +40,6 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  padding-top: 10%;
 }
 </style>
