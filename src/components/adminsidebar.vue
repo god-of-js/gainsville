@@ -1,20 +1,6 @@
 <template>
-  <v-navigation-drawer
-    dark
-    app
-    mobile-break-point="50"
-    width="260"
-    :mini-variant.sync="mini"
-    v-model="drawer"
-  >
+  <v-navigation-drawer dark app clipped mobile-break-point="600" width="260" class="drawer">
     <v-list>
-      <v-list-item @click.stop="mini = !mini">
-        <v-list-item-action>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-list-item-action>
-
-        <v-list-item-title>Show/Hide</v-list-item-title>
-      </v-list-item>
       <v-list-item to="/admin">
         <v-list-item-action class="d-flex">
           <v-icon>mdi-view-dashboard</v-icon>
@@ -55,7 +41,7 @@
           <v-icon>mdi-post</v-icon>
         </v-list-item-action>
         <v-list-item-content>Post Information</v-list-item-content>
-      </v-list-item> -->
+      </v-list-item>-->
       <v-list-item @click="logOut">
         <v-list-item-action>
           <v-icon>mdi-logout</v-icon>
@@ -72,8 +58,6 @@ export default {
   name: "Sidebar",
   data() {
     return {
-      mini: true,
-      drawer: true
     };
   },
   methods: {
@@ -85,3 +69,13 @@ export default {
   }
 };
 </script> 
+<style scoped>
+  .drawer{
+    display: block;
+  }
+  @media screen and (max-width: 600px){
+    .drawer{
+      display: none
+    }
+  }
+</style>
